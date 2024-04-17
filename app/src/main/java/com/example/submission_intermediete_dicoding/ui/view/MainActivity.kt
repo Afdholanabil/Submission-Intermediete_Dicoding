@@ -1,7 +1,8 @@
-package com.example.submission_intermediete_dicoding
+package com.example.submission_intermediete_dicoding.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.submission_intermediete_dicoding.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
