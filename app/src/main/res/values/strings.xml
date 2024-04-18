@@ -10,4 +10,8 @@
     <string name="tab_text_2">Other List</string>
     <string name="hi_total_story_anda_14_story">Hi ! total story anda 14 story</string>
     <string name="selamat_datang">Selamat Datang,</string>
+    <string name="email_user">Email User</string>
+    <string name="total_story_yang_anda_upload_adalah_story">Total Story yang Anda Upload adalah Story</string>
+    <string name="develop_by_wijang_afdholanabil_kusuma">Develop By Wijang Afdholanabil Kusuma</string>
+    <string name="logout">Logout</string>
 </resources>
