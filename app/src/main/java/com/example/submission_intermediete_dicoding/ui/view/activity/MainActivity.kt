@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.annotation.StringRes
@@ -16,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
+        binding.toolbar.setNavigationOnClickListener{
+            startActivity(Intent(this@MainActivity, SettingActivity::class.java))
+        }
 
         val sectionPageAdapter = SectionPageAdapter(this)
         val viewPager : ViewPager2 = binding.viewPager
