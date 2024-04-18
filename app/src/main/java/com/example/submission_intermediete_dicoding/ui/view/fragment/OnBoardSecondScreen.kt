@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.submission_intermediete_dicoding.R
+import com.example.submission_intermediete_dicoding.databinding.FragmentOnBoardSecondScreenBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,7 @@ class OnBoardSecondScreen : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var onFinishClickListener: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +36,19 @@ class OnBoardSecondScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_board_second_screen, container, false)
+        val binding = FragmentOnBoardSecondScreenBinding.inflate(inflater, container, false)
+
+        // Hapus logika onClick untuk tombol Finish
+
+        binding.btnFinish.setOnClickListener {
+            onFinishClickListener?.invoke()
+        }
+
+        return binding.root
+    }
+
+    fun setOnFinishClickListener(listener: () -> Unit) {
+        onFinishClickListener = listener
     }
 
     companion object {

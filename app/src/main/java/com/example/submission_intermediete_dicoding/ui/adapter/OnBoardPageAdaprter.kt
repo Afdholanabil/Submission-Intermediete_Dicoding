@@ -9,18 +9,37 @@ import com.example.submission_intermediete_dicoding.ui.view.fragment.OnBoardSeco
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import com.example.submission_intermediete_dicoding.util.OnBoardPreference
 
-class OnBoardPageAdaprter(private val pref : OnBoardPreference, activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+class OnBoardPageAdaprter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
+
+    private var onBoardInteractionListener: OnBoardInteractionListener? = null
+
+    fun setOnBoardInteractionListener(listener: OnBoardInteractionListener) {
+        onBoardInteractionListener = listener
+    }
     override fun getItemCount(): Int {
         return 2
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragment : Fragment? = null
-        when(position) {
-            0 -> fragment = OnBoardFirstScreen()
-            1 -> OnBoardSecondScreen
+        return when (position) {
+            0 -> OnBoardFirstScreen().apply {
+                // Set listener untuk fragment pertama
+                setOnNextClickListener {
+                    onBoardInteractionListener?.moveToNextPage()
+                }
+            }
+            1 -> OnBoardSecondScreen().apply {
+                // Set listener untuk fragment kedua
+                setOnFinishClickListener {
+                    onBoardInteractionListener?.finishOnBoarding()
+                }
+            }
+            else -> throw IndexOutOfBoundsException("Invalid position")
         }
-
-        return fragment as Fragment
     }
+}
+
+interface OnBoardInteractionListener {
+    fun moveToNextPage()
+    fun finishOnBoarding()
 }

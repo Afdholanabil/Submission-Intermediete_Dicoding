@@ -6,21 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.submission_intermediete_dicoding.R
+import com.example.submission_intermediete_dicoding.databinding.FragmentOnBoardFirstScreenBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [OnBoardFirstScreen.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class OnBoardFirstScreen : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var onNextClickListener: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,20 +31,22 @@ class OnBoardFirstScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_board_first_screen, container, false)
+        val binding = FragmentOnBoardFirstScreenBinding.inflate(inflater, container, false)
+
+        // Hapus logika onClick untuk tombol Next
+
+        binding.btnNext.setOnClickListener {
+            onNextClickListener?.invoke()
+        }
+
+        return binding.root
+    }
+
+    fun setOnNextClickListener(listener: () -> Unit) {
+        onNextClickListener = listener
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment OnBoardFirstScreen.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             OnBoardFirstScreen().apply {

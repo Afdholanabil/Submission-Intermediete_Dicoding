@@ -1,0 +1,18 @@
+package com.example.submission_intermediete_dicoding.ui.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.submission_intermediete_dicoding.util.OnBoardPreference
+
+class onBoardViewModelFactory(private val preference: OnBoardPreference): ViewModelProvider.NewInstanceFactory() {
+
+    @Suppress("UNCHEKED_CAST")
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(OnBoardViewModel::class.java)) {
+            return OnBoardViewModel(preference) as T
+        }
+
+        throw IllegalArgumentException("Unknown View Model Class:" + modelClass.name)
+    }
+}
