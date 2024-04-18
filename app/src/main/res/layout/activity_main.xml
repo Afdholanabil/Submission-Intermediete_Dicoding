@@ -8,19 +8,34 @@
     tools:context=".ui.view.activity.MainActivity"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/profile_1"
+            android:background="@color/p1"
+            app:title="@string/selamat_datang"
+            app:titleTextColor="@color/black2"
+            app:subtitle="@string/hi_total_story_anda_14_story"
+            app:subtitleTextColor="@color/black2"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:tabTextColor="@android:color/white"/>
+        app:tabRippleColor="@color/p4"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/black2"/>
 
     <!-- -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-
 
 </LinearLayout>
