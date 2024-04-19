@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
@@ -45,6 +46,7 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
     }
 
     override fun finishOnBoarding() {
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 }

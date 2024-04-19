@@ -3,17 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.view.fragment.OnBoardFirstScreen">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:src="@drawable/image1"
+            app:layout_constraintDimensionRatio="H,1:1"
+           app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="@string/image_onboard1" />
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/iv1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/desc_onBoard1"
+            android:textSize="18sp"
+            android:fontFamily="@font/interregular"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:textSize="18sp"
+            android:textColor="@color/black2"
+            android:fontFamily="@font/satoshiblack"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="40dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </FrameLayout>

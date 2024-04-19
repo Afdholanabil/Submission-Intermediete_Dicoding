@@ -14,4 +14,9 @@
     <string name="total_story_yang_anda_upload_adalah_story">Total Story yang Anda Upload adalah Story</string>
     <string name="develop_by_wijang_afdholanabil_kusuma">Develop By Wijang Afdholanabil Kusuma</string>
     <string name="logout">Logout</string>
+    <string name="image_onboard1">Image OnBoard1</string>
+    <string name="next">Next</string>
+    <string name="desc_onBoard1">Hello, StoryQ is the app that contain a story of people</string>
+    <string name="finish">Finish</string>
+    <string name="desc_onBoard2">You can make your own story in this app. Feel free to explore</string>
 </resources>
