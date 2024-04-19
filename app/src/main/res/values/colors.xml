@@ -4,8 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="black2">#323147</color>
 
-    <color name="p1">#B3C8CF</color>
-    <color name="p2">#BED7DC</color>
-    <color name="p3">#F1EEDC</color>
-    <color name="p4">#E5DDC5</color>
+    <color name="p1">#003C43</color>
+    <color name="p2">#135D66</color>
+    <color name="p3">#77B0AA</color>
+    <color name="p4">#E3FEF7</color>
 </resources>

@@ -46,7 +46,7 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
     }
 
     override fun finishOnBoarding() {
-        startActivity(Intent(this, LoginActivity::class.java))
+        startActivity(Intent(this, FirstBoardActivity::class.java))
         finish()
     }
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Submission_intermediete_dicoding</string>
-    <string name="login">Login</string>
+    <string name="login">Sign in</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -19,4 +19,14 @@
     <string name="desc_onBoard1">Hello, StoryQ is the app that contain a story of people</string>
     <string name="finish">Finish</string>
     <string name="desc_onBoard2">You can make your own story in this app. Feel free to explore</string>
+    <string name="background_image">Background Image</string>
+    <string name="desc_first_Board1">I already have an account</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="login_here">Login here</string>
+    <string name="welcome_back_you_ve_been_missed">Welcome back you\'ve been missed!</string>
+    <string name="create_account">Create Account</string>
+    <string name="create_an_account_so_you_can_make_and_explore_all_the_existing_story">Create an account so you can make and explore all the existing story</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="already_have_an_account">Already have an account</string>
 </resources>

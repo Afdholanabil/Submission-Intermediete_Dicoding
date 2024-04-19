@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="@string/next"
             android:textSize="18sp"
-            android:textColor="@color/black2"
+            android:textColor="@color/white"
             android:fontFamily="@font/satoshiblack"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
