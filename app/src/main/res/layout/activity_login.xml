@@ -71,6 +71,7 @@
         app:layout_constraintTop_toBottomOf="@id/tl_pw"/>
 
     <TextView
+        android:id="@+id/tv_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_new_account"
@@ -80,5 +81,74 @@
         android:layout_marginTop="20dp"
         android:textSize="18sp"
         android:fontFamily="@font/satoshibold"/>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/tv_signup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/or_sign_in_with"
+            android:textSize="12sp"
+            android:textColor="@color/black2"
+            />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/apple"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_apple"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_icon_rounded"
+        app:layout_constraintTop_toBottomOf="@id/ll1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/google"
+
+        />
+    <ImageView
+        android:id="@+id/google"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_google"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_icon_rounded"
+        app:layout_constraintTop_toBottomOf="@id/ll1"
+        app:layout_constraintStart_toEndOf="@id/apple"
+        app:layout_constraintEnd_toStartOf="@id/facebook"
+
+        />
+    <ImageView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_facebook"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_icon_rounded"
+        app:layout_constraintTop_toBottomOf="@id/ll1"
+        app:layout_constraintStart_toEndOf="@id/google"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
