@@ -7,6 +7,13 @@
     android:padding="20dp"
     tools:context=".ui.view.activity.RegisterActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/tv_title_register"
         android:layout_width="match_parent"
@@ -36,12 +43,26 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tl_email"
+        android:id="@+id/tl_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@id/tv_subtitle_register">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tl_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tl_name">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"/>
@@ -52,8 +73,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        app:passwordToggleDrawable="@drawable/profile_1_black"
         app:layout_constraintTop_toBottomOf="@id/tl_email">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"/>
@@ -66,13 +89,14 @@
         android:layout_marginTop="5dp"
         app:layout_constraintTop_toBottomOf="@id/tl_pw">
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_confirm_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
@@ -83,10 +107,11 @@
         app:layout_constraintTop_toBottomOf="@id/tl_confirm_pw"/>
 
     <TextView
+        android:id="@+id/tv_toLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/already_have_an_account"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/btn_register"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"

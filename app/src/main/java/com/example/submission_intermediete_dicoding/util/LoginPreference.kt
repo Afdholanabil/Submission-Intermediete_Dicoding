@@ -9,10 +9,6 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
-
-
-
 val Context.datastore :DataStore<Preferences> by preferencesDataStore(name = "login")
 class LoginPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
