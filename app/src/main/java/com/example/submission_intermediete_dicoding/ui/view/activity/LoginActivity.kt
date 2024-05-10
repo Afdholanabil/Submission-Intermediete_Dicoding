@@ -38,8 +38,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-
-
+        binding.tvSignup.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
+            finish()
+        }
 
         loginViewModel.loginResponse.observe(this) { response ->
             if (response != null) {

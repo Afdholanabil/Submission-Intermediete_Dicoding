@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
+        binding.btnAddStory.setOnClickListener {
+            startActivity(Intent(this, AddStoryActivity::class.java))
+        }
+
     }
 
     companion object {

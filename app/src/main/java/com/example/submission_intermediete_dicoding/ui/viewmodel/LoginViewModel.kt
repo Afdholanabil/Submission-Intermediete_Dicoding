@@ -53,8 +53,6 @@ class LoginViewModel(private val preferences: LoginPreference) : ViewModel() {
 
     }
 
-
-
     fun getLoginSession(): LiveData<Boolean> {
         return preferences.getLoginSession().asLiveData()
     }

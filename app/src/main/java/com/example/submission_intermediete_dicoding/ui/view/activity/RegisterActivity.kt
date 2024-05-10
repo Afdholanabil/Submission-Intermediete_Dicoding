@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.view.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -41,6 +42,11 @@ class RegisterActivity : AppCompatActivity() {
         binding.etPw.addTextChangedListener { editable ->
             editable?.length?.let {
                 registerViewModel.setEditTextLength(it) }
+        }
+
+        binding.tvToLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
 
 //        registerViewModel.isConfirmSame.observe(this) {
