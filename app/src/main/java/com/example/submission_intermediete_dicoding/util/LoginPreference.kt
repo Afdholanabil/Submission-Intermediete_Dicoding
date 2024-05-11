@@ -3,26 +3,39 @@ package com.example.submission_intermediete_dicoding.util
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.submission_intermediete_dicoding.data.response.LoginResponse
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 val Context.datastore :DataStore<Preferences> by preferencesDataStore(name = "login")
 class LoginPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val SESSION_KEY = booleanPreferencesKey("login_session")
+    private val TOKEN_KEY = stringPreferencesKey("login_token")
+    private val LOGIN_RESPONSE_KEY = stringPreferencesKey("login_response")
 
-    fun getLoginSession(): Flow<Boolean> {
-        return dataStore.data.map { preference ->
-            preference[SESSION_KEY] ?: false
+
+    suspend fun saveLoginSession(token: LoginResponse) {
+        val jsonString = Gson().toJson(token)
+        dataStore.edit { preferences ->
+            preferences[LOGIN_RESPONSE_KEY] = jsonString
+        }
+
+    }
+
+    fun getLoginSession(): Flow<LoginResponse?> {
+        return dataStore.data.map { preferences ->
+            val jsonString = preferences[LOGIN_RESPONSE_KEY]
+            Gson().fromJson(jsonString, LoginResponse::class.java)
         }
     }
 
-    suspend fun saveLoginSession(isLoged : Boolean) {
-        dataStore.edit { preference ->
-        preference[SESSION_KEY] = isLoged
+    suspend fun removeSession() {
+        dataStore.edit { pref ->
+            pref.remove(LOGIN_RESPONSE_KEY)
         }
     }
 

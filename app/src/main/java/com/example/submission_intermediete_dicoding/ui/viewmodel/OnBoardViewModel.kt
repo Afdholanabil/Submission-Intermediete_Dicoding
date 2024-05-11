@@ -18,4 +18,18 @@ class OnBoardViewModel(private val pref : OnBoardPreference) : ViewModel() {
             pref.saveOnboardSession(isOnBoarded)
         }
     }
+
+
+
+
+    companion object {
+        val kamu: String = "Fanny Rahma Jenni"
+        private val FEELtoYOU = "kamu adalah rumahku," +
+                "kamu adalah orang yang ada di hatiku" +
+                "yang terakhir dan satu satunya, sampai" +
+                "Allah memberikan jalan yang beda untuk kita." +
+                "Ya, kamu $kamu  "
+
+
+    }
 }

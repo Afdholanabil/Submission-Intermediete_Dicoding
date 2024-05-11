@@ -23,13 +23,13 @@ class OnBoardPageAdaprter(activity: AppCompatActivity) : FragmentStateAdapter(ac
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> OnBoardFirstScreen().apply {
-                // Set listener untuk fragment pertama
+
                 setOnNextClickListener {
                     onBoardInteractionListener?.moveToNextPage()
                 }
             }
             1 -> OnBoardSecondScreen().apply {
-                // Set listener untuk fragment kedua
+
                 setOnFinishClickListener {
                     onBoardInteractionListener?.finishOnBoarding()
                 }

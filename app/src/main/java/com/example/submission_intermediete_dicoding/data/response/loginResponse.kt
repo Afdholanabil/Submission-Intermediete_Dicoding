@@ -1,7 +1,10 @@
 package com.example.submission_intermediete_dicoding.data.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class LoginResponse(
 
 	@field:SerializedName("loginResult")
@@ -12,8 +15,10 @@ data class LoginResponse(
 
 	@field:SerializedName("message")
 	val message: String
-)
+): Parcelable
 
+
+@Parcelize
 data class LoginResult(
 
 	@field:SerializedName("name")
@@ -24,4 +29,4 @@ data class LoginResult(
 
 	@field:SerializedName("token")
 	val token: String
-)
+) : Parcelable

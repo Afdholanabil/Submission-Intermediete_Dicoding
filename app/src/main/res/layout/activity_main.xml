@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:navigationIcon="@drawable/profile_1"
             android:background="@color/p1"
-            app:title="@string/selamat_datang"
+            app:title="..."
             app:titleTextAppearance="@style/CustomToolbarStyleTitle"
             app:titleTextColor="@color/white"
             app:subtitle="@string/hi_total_story_anda_14_story"

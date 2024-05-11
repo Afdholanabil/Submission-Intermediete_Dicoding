@@ -38,7 +38,6 @@ class OnBoardSecondScreen : Fragment() {
     ): View? {
         val binding = FragmentOnBoardSecondScreenBinding.inflate(inflater, container, false)
 
-        // Hapus logika onClick untuk tombol Finish
 
         binding.btnFinish.setOnClickListener {
             onFinishClickListener?.invoke()

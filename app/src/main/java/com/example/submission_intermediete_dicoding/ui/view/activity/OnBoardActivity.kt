@@ -18,6 +18,8 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
 
     private lateinit var binding: ActivityOnBoardBinding
     private lateinit var pagerAdapter: OnBoardPageAdaprter
+
+    private lateinit var viewModel: OnBoardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnBoardBinding.inflate(layoutInflater)
@@ -26,7 +28,7 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
 
         val pref =OnBoardPreference.getInstance(application.datastore)
 
-        val onBoardViewModel = ViewModelProvider(this, onBoardViewModelFactory(pref)).get(
+        viewModel = ViewModelProvider(this, onBoardViewModelFactory(pref)).get(
             OnBoardViewModel::class.java
         )
         pagerAdapter = OnBoardPageAdaprter(this)
@@ -34,6 +36,13 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
         binding.vpOnboard.adapter = pagerAdapter
 
         supportActionBar?.elevation = 0f
+
+        viewModel.getOnBoardSession().observe(this) {isDone ->
+            if (isDone) {
+                startActivity(Intent(this, FirstBoardActivity::class.java))
+
+            }
+        }
     }
 
     override fun moveToNextPage() {
@@ -42,11 +51,15 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
             binding.vpOnboard.setCurrentItem(nextPage, true)
         } else {
             finish()
+
+
         }
     }
 
     override fun finishOnBoarding() {
         startActivity(Intent(this, FirstBoardActivity::class.java))
+        viewModel.saveOnBoardSession(true)
         finish()
+
     }
 }

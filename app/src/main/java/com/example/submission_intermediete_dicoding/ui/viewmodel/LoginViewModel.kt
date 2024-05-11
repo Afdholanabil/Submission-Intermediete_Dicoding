@@ -1,7 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.viewmodel
 
 import android.util.Log
-import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,6 +36,7 @@ class LoginViewModel(private val preferences: LoginPreference) : ViewModel() {
                     _loading.value = false
                     _loginResponse.value = response.body()
                     Log.d(TAG, "OnResponse : ${response.message()}")
+                    Log.d(TAG, "data: ${response.body()}")
                     _snackBar.value = Event("Berhasil Login !")
                 } else {
                     Log.d(TAG,"OnFail : ${response.message()}")
@@ -53,11 +53,11 @@ class LoginViewModel(private val preferences: LoginPreference) : ViewModel() {
 
     }
 
-    fun getLoginSession(): LiveData<Boolean> {
+    fun getLoginSession(): LiveData<LoginResponse?> {
         return preferences.getLoginSession().asLiveData()
     }
 
-    fun saveLoginSession(isLoged : Boolean) {
+    fun saveLoginSession(isLoged : LoginResponse) {
         viewModelScope.launch {
             preferences.saveLoginSession(isLoged)
         }

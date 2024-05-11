@@ -3,9 +3,11 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.example.submission_intermediete_dicoding.R
+import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.databinding.ActivityMainBinding
 import com.example.submission_intermediete_dicoding.ui.adapter.SectionPageAdapter
 import com.google.android.material.tabs.TabLayout
@@ -19,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        val loginData = intent.getParcelableExtra<LoginResponse>("id_login")
+
+        Log.d(TAG, "loginData : $loginData")
+        Log.d(TAG, "loginData-name : ${loginData?.loginResult?.name}")
 
         binding.toolbar.setNavigationOnClickListener{
             startActivity(Intent(this@MainActivity, SettingActivity::class.java))
@@ -38,7 +45,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, AddStoryActivity::class.java))
         }
 
+        binding.toolbar.title = ("Selamat Datang, " + loginData?.loginResult?.name) ?: "guest"
+
+
+
     }
+
 
     companion object {
         @StringRes
@@ -47,6 +59,6 @@ class MainActivity : AppCompatActivity() {
             R.string.tab_text_2
         )
 
-
+        private const val TAG = "MainActivity"
     }
 }
