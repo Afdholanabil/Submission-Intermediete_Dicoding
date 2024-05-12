@@ -13,8 +13,8 @@ class ApiConfig {
         fun getApiService() : ApiService {
             val baseUrl = BuildConfig.BASE_URL
 //
-//            val loggingInterceptor =
-//                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 //            val client = OkHttpClient.Builder()
 //                .addInterceptor(loggingInterceptor)
 //                .build()
@@ -22,12 +22,12 @@ class ApiConfig {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeader = req.newBuilder()
-                    .addHeader("Auth","")
+                    .addHeader("Authorization","Bearer ")
                     .build()
                 chain.proceed(requestHeader)
             }
 
-            val client =OkHttpClient.Builder().addInterceptor(authInterceptor).build()
+            val client =OkHttpClient.Builder().addInterceptor(loggingInterceptor).addInterceptor(authInterceptor).build()
             val retrofit = Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
