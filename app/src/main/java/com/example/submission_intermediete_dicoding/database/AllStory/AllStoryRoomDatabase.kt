@@ -16,7 +16,7 @@ abstract class AllStoryRoomDatabase : RoomDatabase() {
         fun getDatabase(context: Context): AllStoryRoomDatabase {
             if (INSTANCE == null) {
                 synchronized(AllStoryRoomDatabase::class.java) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,AllStoryRoomDatabase::class.java,"favorite_user_database")
+                    INSTANCE = Room.databaseBuilder(context.applicationContext,AllStoryRoomDatabase::class.java,"all_story_database")
                         .build()
                 }
             }

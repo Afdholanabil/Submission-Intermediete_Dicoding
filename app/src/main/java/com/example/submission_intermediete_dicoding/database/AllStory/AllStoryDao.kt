@@ -18,8 +18,11 @@ interface AllStoryDao {
     fun update(allStory: AllStory)
 
     @Delete
-    fun deleteFavoriteUserByUsername(allStory: AllStory)
+    fun deleteStoryById(allStory: AllStory)
 
     @Query("SELECT * from allstory ORDER BY id = id")
-    fun getAllFavoriteUser(): LiveData<List<AllStory>>
+    fun getAllStory(): LiveData<List<AllStory>>
+
+    @Query("SELECT * FROM allstory where id = :id")
+    fun getStoryFromId(id: String): LiveData<AllStory>
 }

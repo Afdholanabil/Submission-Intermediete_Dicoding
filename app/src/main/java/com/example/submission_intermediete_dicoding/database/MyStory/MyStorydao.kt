@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.example.submission_intermediete_dicoding.database.AllStory.AllStory
 import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
 
 @Dao
@@ -19,8 +20,11 @@ interface MyStorydao {
     fun update(myStory: MyStory)
 
     @Delete
-    fun deleteFavoriteUserByUsername(myStory: MyStory)
+    fun deleteMyStoryById(myStory: MyStory)
 
     @Query("SELECT * from mystory ORDER BY id = id")
-    fun getAllFavoriteUser(): LiveData<List<MyStory>>
+    fun getAllMyStory(): LiveData<List<MyStory>>
+
+    @Query("SELECT * FROM mystory where id = :id")
+    fun getMyStoryById(id: String): LiveData<MyStory>
 }

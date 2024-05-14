@@ -34,4 +34,6 @@
     <string name="or_sign_in_with">or sign in with</string>
     <string name="name">Name</string>
     <string name="add_story">add_story</string>
+    <string name="take_picture">Take picture</string>
+    <string name="swift_camera">Swift camera</string>
 </resources>
