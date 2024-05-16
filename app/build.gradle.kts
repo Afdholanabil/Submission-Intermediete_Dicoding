@@ -65,6 +65,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
 
     implementation("androidx.exifinterface:exifinterface:1.3.7")
@@ -83,6 +86,8 @@ dependencies {
 
     implementation ("com.github.yalantis:ucrop:2.2.8")
     implementation("com.github.yalantis:ucrop:2.2.8-native")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation("com.google.android.gms:play-services-basement:18.0.0")
     implementation("com.google.android.gms:play-services-base:17.6.0")

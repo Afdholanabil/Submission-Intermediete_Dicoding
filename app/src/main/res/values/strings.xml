@@ -36,4 +36,8 @@
     <string name="add_story">add_story</string>
     <string name="take_picture">Take picture</string>
     <string name="swift_camera">Swift camera</string>
+    <string name="username">Username</string>
+    <string name="image_profile">Image profile</string>
+    <string name="image_contain">Image Contain</string>
+    <string name="description">Description</string>
 </resources>

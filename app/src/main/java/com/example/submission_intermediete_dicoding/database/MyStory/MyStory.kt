@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.database.MyStory
 
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
