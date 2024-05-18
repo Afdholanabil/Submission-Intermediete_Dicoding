@@ -8,8 +8,10 @@ import com.example.submission_intermediete_dicoding.data.retrofit.ApiService
 import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
 import com.example.submission_intermediete_dicoding.database.MyStory.MyStorydao
 import com.example.submission_intermediete_dicoding.util.LoginPreference
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,24 +39,24 @@ class MyStoryRepository private constructor(
         photo: MultipartBody.Part,
         lat: Double?,
         lon: Double?,
-        myStory: MyStory
-    ) {
-
-        val token = runBlocking { loginPreference.getLoginSession().first()?.loginResult?.token}
-        val response = apiService.addStory("Bearer $token", description,photo,lat, lon)
-        response.enqueue(object : Callback<AddStoryResponse> {
-            override fun onResponse(
-                call: Call<AddStoryResponse>,
-                response: Response<AddStoryResponse>
-            ) {
-                executorService.execute {
-                    myStoryDao.insert(myStory) }
+//        myStory: MyStory
+    ) : AddStoryResponse {
+        return withContext(Dispatchers.IO) {
+            val token = loginPreference.getLoginSession().first()?.loginResult?.token
+            val response = apiService.addStory("Bearer $token", description, photo, lat, lon)
+            if (response.isSuccessful) {
+                response.body() ?: throw Exception("Response body is null")
+            } else {
+                throw Exception("Failed to add story: ${response.errorBody()?.string()}")
             }
+        }
 
-            override fun onFailure(call: Call<AddStoryResponse>, t: Throwable) {
-
-            }
-        })
+//            if (!response.error!!) {
+//                executorService.execute {
+//                    myStoryDao.insert(myStory) }
+//            } else {
+//                throw Exception("Failed to add story")
+//            }
     }
 
     fun getAllMyStory(): LiveData<List<MyStory>> = myStoryDao.getAllMyStory()
@@ -81,5 +83,4 @@ class MyStoryRepository private constructor(
             instance ?: MyStoryRepository(apiService, loginPreference, myStoryDao).also { instance = it }
         }
     }
-
 }

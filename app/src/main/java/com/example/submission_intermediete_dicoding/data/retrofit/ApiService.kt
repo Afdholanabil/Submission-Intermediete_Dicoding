@@ -9,6 +9,7 @@ import com.example.submission_intermediete_dicoding.data.response.StoryResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -43,11 +44,11 @@ interface ApiService {
 
     @Multipart
     @POST("stories")
-    fun addStory (
+    suspend fun addStory (
         @Header("Authorization") token: String,
         @Part("description") description: String?,
         @Part photo: MultipartBody.Part?,
         @Part("lat") lat: Double?,
         @Part("lon") lon: Double?
-    ) : Call<AddStoryResponse>
+    ) : Response<AddStoryResponse>
 }

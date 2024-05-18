@@ -4,6 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ui.view.activity.DetailActivity">
+
+
+    <ImageView
+        android:id="@+id/img_content_detail"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:src="@drawable/image4"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        class="android.widget.TextView">
+        <TextView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    </view>
+
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

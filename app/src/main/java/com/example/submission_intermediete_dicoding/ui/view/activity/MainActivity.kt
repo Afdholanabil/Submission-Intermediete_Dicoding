@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("Image URI", "showImage: $it")
             val intent = Intent(this, AddStoryActivity::class.java)
             intent.putExtra(EXTRA_CAMERAX_IMAGE, it)
-            intent.putExtra("token", loginData.loginResult.token)
+            intent.putExtra("token", loginData)
             startActivity(intent)
             finish()
         }

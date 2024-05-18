@@ -10,9 +10,9 @@ import kotlinx.parcelize.Parcelize
 @Entity
 @Parcelize
 data class MyStory(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id : String,
+    var id : Int = 0,
 
     @ColumnInfo(name = "name")
     var name : String? = null,

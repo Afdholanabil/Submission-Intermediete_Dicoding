@@ -37,7 +37,6 @@ class LoginActivity : AppCompatActivity() {
             val inputPw = binding.etPw.text.toString()
             if (inputEmail.isNotEmpty() && inputPw.isNotEmpty()) {
                 loginViewModel.loginPost(inputEmail, inputPw)
-
             }
         }
 
