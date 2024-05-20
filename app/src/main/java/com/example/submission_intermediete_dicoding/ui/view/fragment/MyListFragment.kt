@@ -5,7 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.submission_intermediete_dicoding.R
+import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
+import com.example.submission_intermediete_dicoding.data.retrofit.Injection
+import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.databinding.FragmentMyListBinding
+import com.example.submission_intermediete_dicoding.ui.adapter.AllStoryAdapter
+import com.example.submission_intermediete_dicoding.ui.adapter.MyStoryAdapter
+import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
+import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,6 +33,9 @@ class MyListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentMyListBinding
+    private lateinit var myStoryViewModel : StoryViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -33,9 +47,24 @@ class MyListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_list, container, false)
+    ) : View {
+        binding = FragmentMyListBinding.inflate(layoutInflater,container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val storyRepository = Injection.provideStoryRepository(requireActivity())
+        myStoryViewModel = ViewModelProvider(this, StoryViewModelFactory(storyRepository)).get(StoryViewModel::class.java)
+
+        setupRecyclerView()
+        myStoryViewModel.allMyStories.observe(viewLifecycleOwner){ data ->
+            if (data != null) {
+                setListData(data)
+            }
+        }
+        myStoryViewModel.getMyStoryALl()
     }
 
     companion object {
@@ -56,5 +85,18 @@ class MyListFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun setListData(data: List<MyStory>) {
+        val adapter = MyStoryAdapter(data, requireActivity())
+        binding.rvMyListStory.adapter = adapter
+    }
+
+    private fun setupRecyclerView() {
+        val layoutManager = LinearLayoutManager(requireActivity())
+        binding.rvMyListStory.layoutManager =layoutManager
+        val itemDecoration = DividerItemDecoration(requireActivity(), layoutManager.orientation)
+        binding.rvMyListStory.addItemDecoration(itemDecoration)
+        binding.rvMyListStory.adapter = MyStoryAdapter(emptyList(), requireActivity())
     }
 }

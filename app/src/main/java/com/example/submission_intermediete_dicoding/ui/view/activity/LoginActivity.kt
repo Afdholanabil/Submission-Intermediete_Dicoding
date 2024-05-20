@@ -20,7 +20,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var pref : LoginPreference
-
+    private var email : String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -36,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
             val inputEmail = binding.etEmail.text.toString()
             val inputPw = binding.etPw.text.toString()
             if (inputEmail.isNotEmpty() && inputPw.isNotEmpty()) {
+                email = inputEmail
                 loginViewModel.loginPost(inputEmail, inputPw)
             }
         }
@@ -50,6 +51,7 @@ class LoginActivity : AppCompatActivity() {
                 if (!response.error) {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("id_login",response)
+                    intent.putExtra("email", email)
                     startActivity(intent)
                     loginViewModel.saveLoginSession(response)
                     Log.d(TAG, "data-activity: ${response.loginResult}")
@@ -64,6 +66,7 @@ class LoginActivity : AppCompatActivity() {
                 if (isLoged != null) {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("id_login",isLoged)
+                    intent.putExtra("email", email)
                     Log.d(TAG,"getLoginToken : $isLoged")
                     startActivity(intent)
                 }

@@ -1,6 +1,7 @@
 package com.example.submission_intermediete_dicoding.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
 
 class MyStoryAdapter(private val stroies: List<MyStory>, private val context: Context) : RecyclerView.Adapter<MyStoryAdapter.MyStoryViewHolder>() {
     inner class MyStoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
@@ -19,6 +21,15 @@ class MyStoryAdapter(private val stroies: List<MyStory>, private val context: Co
         fun bind(story: MyStory) {
             Glide.with(context).load(story.photoUrl).into(ivcContent)
             tvDesc.text = story.desc
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(TAG_USERNAME,"Owner")
+                intent.putExtra(TAG_PHOTO,story.photoUrl)
+                intent.putExtra(TAG_DESC,story.desc)
+
+                context.startActivity(intent)
+            }
         }
     }
 
@@ -34,7 +45,11 @@ class MyStoryAdapter(private val stroies: List<MyStory>, private val context: Co
     override fun onBindViewHolder(holder: MyStoryViewHolder, position: Int) {
         val story = stroies[position]
         holder.bind(story)
+    }
 
-
+    companion object {
+        private const val TAG_USERNAME = "username"
+        private const val TAG_PHOTO = "photoUrl"
+        private const val TAG_DESC = "description"
     }
 }

@@ -19,6 +19,12 @@ class SettingActivity : AppCompatActivity() {
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val email = intent.getStringExtra("email")
+        val storyCount = intent.getIntExtra("storyCount",0)
+        binding.tvProfile.text = email
+        binding.tvTotalStory.text = storyCount.toString()
+
+
         val pref = LoginPreference.getInstance(application.datastore)
         val settingViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
             SettingViewModel::class.java

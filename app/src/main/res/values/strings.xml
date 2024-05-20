@@ -43,4 +43,8 @@
     <string name="change_image">Change Image</string>
     <string name="gallery">Gallery</string>
     <string name="add_story2">Add Story</string>
+    <string name="button_back">button back</string>
+    <string name="deskripsi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor sit amet cursus tincidunt. Quisque semper risus nulla. Fusce sit amet dictum nisl, eget gravida ex. Nam sit amet eleifend massa, mattis pulvinar nisi. Nullam fermentum suscipit pharetra. Praesent interdum feugiat malesuada. Suspendisse semper eros et ligula vehicula, sit amet gravida risus dictum. Ut quis leo sed nulla ullamcorper posuere. Mauris pretium ultricies massa ut malesuada. Proin vitae pellentesque tortor, et tristique leo. Nunc quis auctor mauris, mattis tristique metus.
+
+Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. Sed sed malesuada quam. Vestibulum quis efficitur diam. Maecenas eu sodales turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo magna, gravida id arcu ac, dictum elementum ligula. Duis sollicitudin dui eget metus iaculis tempor. Aenean id imperdiet metus. Nulla mollis lacus quis gravida pellentesque. Nulla congue justo semper, rutrum sem at, pretium orci. Mauris enim lectus, tincidunt id condimentum at, ullamcorper eu mauris. Proin tristique arcu sit amet lectus gravida vestibulum. Fusce dignissim felis ut nisi cursus lobortis. Donec pharetra quam quam, a condimentum urna molestie vel. Nam tristique vel ipsum id porttitor.</string>
 </resources>

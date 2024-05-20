@@ -12,19 +12,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
+import com.example.submission_intermediete_dicoding.data.retrofit.Injection
 import com.example.submission_intermediete_dicoding.databinding.ActivityMainBinding
 import com.example.submission_intermediete_dicoding.ui.adapter.SectionPageAdapter
 import com.example.submission_intermediete_dicoding.ui.view.activity.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.submission_intermediete_dicoding.ui.viewmodel.MainActivityViewModel
+import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var currentImageUri: Uri? = null
-
+    private lateinit var mainViewModel : MainActivityViewModel
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -43,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         ) == PackageManager.PERMISSION_GRANTED
 
     private lateinit var loginData : LoginResponse
+    private var loginEmail : String? = ""
+    private var storyCount : Int? = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -55,13 +61,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         loginData = intent.getParcelableExtra<LoginResponse>("id_login")!!
+        loginEmail = intent.getStringExtra("email")
+        Log.d(TAG, "email : $loginEmail")
 
         Log.d(TAG, "loginData : $loginData")
         Log.d(TAG, "loginData-name : ${loginData?.loginResult?.name}")
 
-        binding.toolbar.setNavigationOnClickListener{
-            startActivity(Intent(this@MainActivity, SettingActivity::class.java))
-        }
+
 
         val sectionPageAdapter = SectionPageAdapter(this)
         val viewPager : ViewPager2 = binding.viewPager
@@ -78,10 +84,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.toolbar.title = ("Selamat Datang, " + loginData?.loginResult?.name) ?: "guest"
-
         binding.btnAddStory.setOnClickListener { startCameraX()}
 
+        val repository = Injection.provideStoryRepository(this)
+        mainViewModel = ViewModelProvider(this, StoryViewModelFactory(repository)).get(MainActivityViewModel::class.java)
 
+        mainViewModel.storyCount.observe(this) { data ->
+            storyCount = data
+            binding.toolbar.subtitle = "Hi! total story anda $data story"
+        }
+
+        binding.toolbar.setNavigationOnClickListener{
+            val intent = Intent(this@MainActivity, SettingActivity::class.java)
+            intent.putExtra("email", loginEmail)
+            intent.putExtra("storyCount", storyCount)
+            startActivity(intent)
+        }
     }
 
     private fun startCameraX() {

@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.view.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
 import com.example.submission_intermediete_dicoding.databinding.FragmentListBinding
 import com.example.submission_intermediete_dicoding.ui.adapter.AllStoryAdapter
+import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 
@@ -89,6 +91,7 @@ class ListFragment : Fragment() {
     private fun setListData(data: List<ListStoryItem>) {
         val adapter = AllStoryAdapter(data, requireActivity())
         binding.rvListStory.adapter = adapter
+
     }
 
     private fun setupRecyclerView() {
@@ -97,6 +100,5 @@ class ListFragment : Fragment() {
         val itemDecoration =DividerItemDecoration(requireActivity(), layoutManager.orientation)
         binding.rvListStory.addItemDecoration(itemDecoration)
         binding.rvListStory.adapter = AllStoryAdapter(emptyList(), requireActivity())
-
     }
 }

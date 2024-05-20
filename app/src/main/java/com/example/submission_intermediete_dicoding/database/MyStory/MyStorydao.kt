@@ -22,9 +22,12 @@ interface MyStorydao {
     @Delete
     fun deleteMyStoryById(myStory: MyStory)
 
-    @Query("SELECT * from mystory ORDER BY id = id")
+    @Query("SELECT * from mystory")
     fun getAllMyStory(): LiveData<List<MyStory>>
 
     @Query("SELECT * FROM mystory where id = :id")
     fun getMyStoryById(id: String): LiveData<MyStory>
+
+    @Query("SELECT COUNT(*) from mystory")
+    fun getStoryCount(): LiveData<Int>
 }

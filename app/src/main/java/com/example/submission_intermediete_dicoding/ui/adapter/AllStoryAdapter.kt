@@ -1,6 +1,7 @@
 package com.example.submission_intermediete_dicoding.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,9 @@ import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.response.StoryResponse
 import com.example.submission_intermediete_dicoding.database.AllStory.AllStory
+import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
 
 class AllStoryAdapter(private var stories: List<ListStoryItem>, private val context: Context) : RecyclerView.Adapter<AllStoryAdapter.AllStoryViewHolder>() {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AllStoryViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_all_story, parent, false)
@@ -26,6 +27,7 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
     override fun onBindViewHolder(holder: AllStoryViewHolder, position: Int) {
         val storyB = stories[position]
         holder.bind(storyB)
+
     }
 
     inner class AllStoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -36,10 +38,27 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
 
         fun bind(story: ListStoryItem) {
             Glide.with(context).load(R.drawable.profile_1_black).circleCrop().fitCenter().into(ivProfile)
-            tvUsername.text =story.name
+            tvUsername.text = story.name
             tvDesc.text = story.description
             Glide.with(context).load(story.photoUrl).into(ivContent)
+
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailActivity::class.java)
+                    intent.putExtra(TAG_USERNAME, story.name)
+                    intent.putExtra(TAG_PHOTO, story.photoUrl)
+                    intent.putExtra(TAG_DESC, story.description)
+
+                context.startActivity(intent)
+            }
+
         }
     }
+
+    companion object {
+        private const val TAG_USERNAME = "username"
+        private const val TAG_PHOTO = "photoUrl"
+        private const val TAG_DESC = "description"
+    }
+
 
 }

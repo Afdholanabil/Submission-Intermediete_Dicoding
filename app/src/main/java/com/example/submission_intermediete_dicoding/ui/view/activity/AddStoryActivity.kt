@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.view.activity
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -23,6 +24,7 @@ import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
 import com.example.submission_intermediete_dicoding.databinding.ActivityAddStoryBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
+import com.example.submission_intermediete_dicoding.util.helper.createCustomTempFile
 import java.io.File
 import java.io.FileOutputStream
 
@@ -98,7 +100,7 @@ class AddStoryActivity : AppCompatActivity() {
         currentImageUri?.let {
             Log.d("Image URI", "showImage: $it")
             val intent = Intent(this, AddStoryActivity::class.java)
-            intent.putExtra(MainActivity.EXTRA_CAMERAX_IMAGE, it)
+            intent.putExtra(EXTRA_CAMERAX_IMAGE, it)
             intent.putExtra("token", loginData)
             startActivity(intent)
             finish()
@@ -116,9 +118,16 @@ class AddStoryActivity : AppCompatActivity() {
         val photoBitmap = (binding.imgPut.drawable as BitmapDrawable).bitmap
         val photoFile = bitmapToFile(photoBitmap)
         val compressedPhotoFile = compressImageFile(photoFile2)
-//        myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = binding.imgPut.toString(), lat = null, lon = null)
+        val photoUri = Uri.fromFile(compressedPhotoFile)
+        try {
+            myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = null, lon = null)
 
-        viewModel.uploadStory(description, compressedPhotoFile, null, null)
+            viewModel.uploadStory(description, compressedPhotoFile, null, null,myStory )
+            binding.btnAddStory.isEnabled = false
+        } catch (e : Exception) {
+            binding.btnAddStory.isEnabled = true
+        }
+
     }
 
     private fun choosePhoto() {
@@ -178,18 +187,11 @@ class AddStoryActivity : AppCompatActivity() {
         return compressedFile
     }
 
-    private fun createCustomTempFile(context: Context): File {
-        val storageDir: File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile(
-            "JPEG_${System.currentTimeMillis()}_",
-            ".jpg",
-            storageDir
-        )
-    }
-
     companion object {
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         private const val TAG = "AddStoryActivity"
         private const val REQUEST_PICK_PHOTO = 1
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+
     }
 }

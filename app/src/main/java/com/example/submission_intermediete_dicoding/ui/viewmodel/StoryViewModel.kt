@@ -20,7 +20,10 @@ import java.io.File
 
 class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel() {
 
-    val allMyStories: LiveData<List<MyStory>> = storyRepository.getAllMyStory()
+    private val _allMyStory = MutableLiveData<List<MyStory>>()
+    val allMyStories: LiveData<List<MyStory>> = _allMyStory
+
+
 
     private val _addStoryResult = MutableLiveData<Result<AddStoryResponse>>()
     val addStoryResult: LiveData<Result<AddStoryResponse>> get() = _addStoryResult
@@ -38,6 +41,8 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
     private val _stories = MutableLiveData<List<ListStoryItem>?>()
     val stories: LiveData<List<ListStoryItem>?> get() = _stories
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading : LiveData<Boolean> = _loading
     fun getStories() {
         viewModelScope.launch {
             try {
@@ -54,19 +59,19 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
         }
     }
 
-    fun addStory(description: String, photoFile: File, lat: Double?, lon: Double?) {
+    fun addStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
         viewModelScope.launch {
             try {
                 val requestFile = photoFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
                 val photo = MultipartBody.Part.createFormData("photo", photoFile.name, requestFile)
-                storyRepository.addStory(description, photo, lat, lon)
+                storyRepository.addStory(description, photo, lat, lon, myStory)
             } catch (e: Exception) {
                Log.e(TAG,"Error : $e")
             }
         }
     }
 
-    fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?) {
+    fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
         if (photoFile.length() > 1_000_000) {
             _error.value = "File size should be less than 1MB"
             return
@@ -80,13 +85,24 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
         viewModelScope.launch {
             try {
-                val response = storyRepository.addStory(description, photoPart, lat, lon)
+                val response = storyRepository.addStory(description, photoPart, lat, lon, myStory)
                 _addStoryResponse.value = response
             } catch (e: Exception) {
                 _error.value = e.message
             }
         }
     }
+
+    fun getMyStoryALl() {
+        _loading.value = true
+        storyRepository.getAllMyStory().observeForever { list ->
+            _allMyStory.value = list
+            _loading.value = false
+            _error.value = "Berhasil Menampilkan Story Anda"
+
+        }
+    }
+
 
     companion object {
         private const val TAG = "StoryViewModel"

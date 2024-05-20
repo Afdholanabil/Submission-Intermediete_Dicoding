@@ -12,10 +12,7 @@ import kotlinx.parcelize.Parcelize
 data class MyStory(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id : Int = 0,
-
-    @ColumnInfo(name = "name")
-    var name : String? = null,
+    var id : Int = 1,
 
     @ColumnInfo(name = "description")
     var desc : String? = null,

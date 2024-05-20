@@ -39,24 +39,19 @@ class MyStoryRepository private constructor(
         photo: MultipartBody.Part,
         lat: Double?,
         lon: Double?,
-//        myStory: MyStory
+        myStory: MyStory
     ) : AddStoryResponse {
         return withContext(Dispatchers.IO) {
             val token = loginPreference.getLoginSession().first()?.loginResult?.token
             val response = apiService.addStory("Bearer $token", description, photo, lat, lon)
             if (response.isSuccessful) {
+                executorService.execute {
+                    myStoryDao.insert(myStory) }
                 response.body() ?: throw Exception("Response body is null")
             } else {
                 throw Exception("Failed to add story: ${response.errorBody()?.string()}")
             }
         }
-
-//            if (!response.error!!) {
-//                executorService.execute {
-//                    myStoryDao.insert(myStory) }
-//            } else {
-//                throw Exception("Failed to add story")
-//            }
     }
 
     fun getAllMyStory(): LiveData<List<MyStory>> = myStoryDao.getAllMyStory()
@@ -69,6 +64,10 @@ class MyStoryRepository private constructor(
 
     fun delete(myStory: MyStory) {
         executorService.execute { myStoryDao.deleteMyStoryById(myStory) }
+    }
+
+    fun getStoryCount(): LiveData<Int> {
+        return myStoryDao.getStoryCount()
     }
 
     companion object {
