@@ -8,10 +8,10 @@
 
     <string name="tab_text_1">My List</string>
     <string name="tab_text_2">Other List</string>
-    <string name="hi_total_story_anda_14_story">Hi ! total story anda 14 story</string>
-    <string name="selamat_datang">Selamat Datang,</string>
+    <string name="hi_total_story_anda_14_story">Hi ! your total story %1$d story</string>
+    <string name="selamat_datang">Welcome,</string>
     <string name="email_user">Email User</string>
-    <string name="total_story_yang_anda_upload_adalah_story">Total Story yang Anda Upload adalah Story</string>
+    <string name="total_story_yang_anda_upload_adalah_story">The total story you upload is %1$d story</string>
     <string name="develop_by_wijang_afdholanabil_kusuma">Develop By Wijang Afdholanabil Kusuma</string>
     <string name="logout">Logout</string>
     <string name="image_onboard1">Image OnBoard1</string>

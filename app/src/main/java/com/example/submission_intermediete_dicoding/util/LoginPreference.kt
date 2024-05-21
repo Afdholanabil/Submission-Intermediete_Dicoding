@@ -17,13 +17,11 @@ class LoginPreference private constructor(private val dataStore: DataStore<Prefe
     private val TOKEN_KEY = stringPreferencesKey("login_token")
     private val LOGIN_RESPONSE_KEY = stringPreferencesKey("login_response")
 
-
     suspend fun saveLoginSession(token: LoginResponse) {
         val jsonString = Gson().toJson(token)
         dataStore.edit { preferences ->
             preferences[LOGIN_RESPONSE_KEY] = jsonString
         }
-
     }
 
     fun getLoginSession(): Flow<LoginResponse?> {

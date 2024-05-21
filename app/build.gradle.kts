@@ -18,7 +18,6 @@ android {
         versionName = "1.0"
 
         buildConfigField("String", "BASE_URL","\"https://story-api.dicoding.dev/v1/\"")
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -42,13 +41,10 @@ android {
     buildFeatures {
         viewBinding = true
         buildConfig = true
-
     }
-
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")

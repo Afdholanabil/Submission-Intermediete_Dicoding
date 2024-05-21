@@ -22,8 +22,7 @@ class SettingActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         val storyCount = intent.getIntExtra("storyCount",0)
         binding.tvProfile.text = email
-        binding.tvTotalStory.text = storyCount.toString()
-
+        binding.tvTotalStory.text = "Total story yang anda buat berjumlah $storyCount story"
 
         val pref = LoginPreference.getInstance(application.datastore)
         val settingViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Submission_intermediete_dicoding</string>
+    <string name="login">Masuk</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="tab_text_1">List Saya</string>
+    <string name="tab_text_2">List Lainnya</string>
+    <string name="hi_total_story_anda_14_story">Hi ! total story anda %1$d story</string>
+    <string name="selamat_datang">Selamat datang,</string>
+    <string name="email_user">Email User</string>
+    <string name="total_story_yang_anda_upload_adalah_story">Total cerita yang Anda unggah adalah %1$d cerita</string>
+    <string name="develop_by_wijang_afdholanabil_kusuma">Dikembangkan oleh Wijang Afdholanabil Kusuma</string>
+    <string name="logout">Keluar</string>
+    <string name="image_onboard1">Image OnBoard1</string>
+    <string name="next">Selanjutnya</string>
+    <string name="desc_onBoard1">Halo, StoryQ adalah aplikasi yang berisi kisah orang-orang</string>
+    <string name="finish">Selesai</string>
+    <string name="desc_onBoard2">Anda dapat membuat cerita Anda sendiri di aplikasi ini. Jangan ragu untuk menjelajah</string>
+    <string name="background_image">Gambar latar belakang</string>
+    <string name="desc_first_Board1">Saya sudah memiliki akun</string>
+    <string name="create_new_account">Buat akun baru</string>
+    <string name="login_here">Login disini</string>
+    <string name="welcome_back_you_ve_been_missed">Selamat datang kembali, kami senang anda datang kembali!</string>
+    <string name="create_account">Buat Akun</string>
+    <string name="create_an_account_so_you_can_make_and_explore_all_the_existing_story">Create an account so you can make and explore all the existing story</string>
+    <string name="confirm_password">Konfirmasi sandi</string>
+    <string name="sign_up">Mendaftar</string>
+    <string name="already_have_an_account">Sudah memiliki akun</string>
+    <string name="connect_the_other">TERHUBUNG DENGAN LAINNYA</string>
+    <string name="let_create_an_untold_story">Ciptakan Kisah yang Tak Terungkap</string>
+    <string name="or_sign_in_with">atau masuk dengan</string>
+    <string name="name">Nama</string>
+    <string name="add_story">tambahkan_cerita</string>
+    <string name="take_picture">Mengambil gambar</string>
+    <string name="swift_camera">Putar kamera</string>
+    <string name="username">Nama Pengguna</string>
+    <string name="image_profile">Profil gambar</string>
+    <string name="image_contain">Berisi Gambar</string>
+    <string name="description">Deskripsi</string>
+    <string name="change_image">Ubah gambar</string>
+    <string name="gallery">Galeri</string>
+    <string name="add_story2">Tambahkan cerita</string>
+    <string name="button_back">tombol kembali</string>
+    <string name="deskripsi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor sit amet cursus tincidunt. Quisque semper risus nulla. Fusce sit amet dictum nisl, eget gravida ex. Nam sit amet eleifend massa, mattis pulvinar nisi. Nullam fermentum suscipit pharetra. Praesent interdum feugiat malesuada. Suspendisse semper eros et ligula vehicula, sit amet gravida risus dictum. Ut quis leo sed nulla ullamcorper posuere. Mauris pretium ultricies massa ut malesuada. Proin vitae pellentesque tortor, et tristique leo. Nunc quis auctor mauris, mattis tristique metus.
+
+Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. Sed sed malesuada quam. Vestibulum quis efficitur diam. Maecenas eu sodales turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo magna, gravida id arcu ac, dictum elementum ligula. Duis sollicitudin dui eget metus iaculis tempor. Aenean id imperdiet metus. Nulla mollis lacus quis gravida pellentesque. Nulla congue justo semper, rutrum sem at, pretium orci. Mauris enim lectus, tincidunt id condimentum at, ullamcorper eu mauris. Proin tristique arcu sit amet lectus gravida vestibulum. Fusce dignissim felis ut nisi cursus lobortis. Donec pharetra quam quam, a condimentum urna molestie vel. Nam tristique vel ipsum id porttitor.</string>
+</resources>
