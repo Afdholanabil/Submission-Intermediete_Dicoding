@@ -138,8 +138,8 @@
                 app:layout_constraintTop_toBottomOf="@id/ll1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/google"
+                android:contentDescription="@string/apple_register" />
 
-               />
             <ImageView
                 android:id="@+id/google"
                 android:layout_width="wrap_content"
@@ -150,8 +150,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ll1"
                 app:layout_constraintStart_toEndOf="@id/apple"
                 app:layout_constraintEnd_toStartOf="@id/facebook"
-
-                />
+                android:contentDescription="@string/google_register" />
             <ImageView
                 android:id="@+id/facebook"
                 android:layout_width="wrap_content"
@@ -162,7 +161,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ll1"
                 app:layout_constraintStart_toEndOf="@id/google"
                 app:layout_constraintEnd_toEndOf="parent"
-                />
+                android:contentDescription="@string/facebook_register" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

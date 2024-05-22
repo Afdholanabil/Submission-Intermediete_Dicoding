@@ -82,9 +82,7 @@ class CameraActivity : AppCompatActivity() {
 
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-
         val photoFile = createCustomTempFile(application)
-
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
         imageCapture.takePicture(
@@ -149,7 +147,6 @@ class CameraActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         orientationEventListener.enable()
-
     }
     companion object {
         private const val TAG = "CameraActivity"

@@ -3,10 +3,13 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.databinding.ActivityLoginBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.LoginViewModel
@@ -36,8 +39,14 @@ class LoginActivity : AppCompatActivity() {
             val inputEmail = binding.etEmail.text.toString()
             val inputPw = binding.etPw.text.toString()
             if (inputEmail.isNotEmpty() && inputPw.isNotEmpty()) {
-                email = inputEmail
-                loginViewModel.loginPost(inputEmail, inputPw)
+                if (isValidEmail(inputEmail)) {
+                    email = inputEmail
+                    loginViewModel.loginPost(inputEmail, inputPw)
+                } else {
+                    binding.etEmail.error = getString(R.string.error_emailNotValid)
+                }
+            } else {
+                Snackbar.make(window.decorView.rootView, R.string.error_regist_allnull, Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -53,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("id_login",response)
                     intent.putExtra("email", email)
                     startActivity(intent)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     loginViewModel.saveLoginSession(response)
                     Log.d(TAG, "data-activity: ${response.loginResult}")
 
@@ -67,10 +77,44 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra("id_login",isLoged)
                     intent.putExtra("email", email)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     Log.d(TAG,"getLoginToken : $isLoged")
                     startActivity(intent)
                 }
         }
+
+        loginViewModel.loading.observe(this) {boolean ->
+            showLoading(boolean)
+        }
+
+        loginViewModel.snackbar.observe(this) {
+            it.getContentIfNotHandled()?.let { snackBar ->
+                Snackbar.make(window.decorView.rootView, snackBar, Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.apple.setOnClickListener {
+            Snackbar.make(window.decorView.rootView,R.string.Message_notYetAvailable, Snackbar.LENGTH_SHORT).show()
+        }
+
+        binding.facebook.setOnClickListener {
+            Snackbar.make(window.decorView.rootView,R.string.Message_notYetAvailable, Snackbar.LENGTH_SHORT).show()
+        }
+        binding.google.setOnClickListener {
+            Snackbar.make(window.decorView.rootView,R.string.Message_notYetAvailable, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showLoading(a: Boolean) {
+        if (a) {
+            binding.progressCircular.visibility = View.VISIBLE
+        } else {
+            binding.progressCircular.visibility = View.GONE
+        }
+    }
+
+    private fun isValidEmail(email: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
 

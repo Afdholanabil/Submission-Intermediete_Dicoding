@@ -10,6 +10,7 @@ import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.response.StoryResponse
 import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
 import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
+import com.example.submission_intermediete_dicoding.util.Event
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -22,39 +23,40 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
     private val _allMyStory = MutableLiveData<List<MyStory>>()
     val allMyStories: LiveData<List<MyStory>> = _allMyStory
-
-
-
     private val _addStoryResult = MutableLiveData<Result<AddStoryResponse>>()
     val addStoryResult: LiveData<Result<AddStoryResponse>> get() = _addStoryResult
-
-    //baruu
-
     private val _addStoryResponse = MutableLiveData<AddStoryResponse>()
     val addStoryResponse: LiveData<AddStoryResponse> get() = _addStoryResponse
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
-
-    ///
-
     private val _stories = MutableLiveData<List<ListStoryItem>?>()
     val stories: LiveData<List<ListStoryItem>?> get() = _stories
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
+
+    private val _snackBar = MutableLiveData<Event<String>>()
+    val snackbar : LiveData<Event<String>> = _snackBar
     fun getStories() {
+        _loading.value = true
         viewModelScope.launch {
             try {
                 val response = storyRepository.getStories()
                 if (!response.error!!) {
+                    _loading.value = false
                     _stories.postValue(response.listStory)
+                    _snackBar.value = Event("Berhasil menampilkan cerita!")
                 } else {
+                    _loading.value = false
                     Log.d(TAG, "Error : else")
+                    _snackBar.value = Event("Gagal menampilkan cerita!")
                 }
 
             } catch (e: Exception) {
+                _loading.value = false
                 Log.e(TAG, "Error : $e")
+                _snackBar.value = Event("Gagal, Terjadi masalah!")
             }
         }
     }
@@ -72,7 +74,9 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
     }
 
     fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
+        _loading.value = true
         if (photoFile.length() > 1_000_000) {
+            _loading.value = true
             _error.value = "File size should be less than 1MB"
             return
         }
@@ -85,10 +89,14 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
         viewModelScope.launch {
             try {
+                _loading.value = false
                 val response = storyRepository.addStory(description, photoPart, lat, lon, myStory)
                 _addStoryResponse.value = response
+                _snackBar.value = Event("Berhasil menambahkan cerita!")
             } catch (e: Exception) {
+                _loading.value = false
                 _error.value = e.message
+                _snackBar.value = Event("Gagal menambahkan cerita!")
             }
         }
     }
@@ -98,7 +106,7 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
         storyRepository.getAllMyStory().observeForever { list ->
             _allMyStory.value = list
             _loading.value = false
-            _error.value = "Berhasil Menampilkan Story Anda"
+            _snackBar.value = Event("Berhasil menampilkan cerita anda!")
 
         }
     }

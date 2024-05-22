@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.view.fragment.MyListFragment">
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_myListStory"
         android:layout_width="match_parent"
@@ -12,5 +19,17 @@
         android:scrollbarSize="0dp"
         tools:listitem="@layout/item_my_story">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/tv_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:fontFamily="@font/satoshiregular"
+        android:text="@string/anda_belum_pernah_menambahkan_cerita"
+        android:layout_gravity="center"
+        />
 
 </FrameLayout>

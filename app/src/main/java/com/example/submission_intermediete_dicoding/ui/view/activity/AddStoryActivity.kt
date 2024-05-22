@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -80,6 +81,11 @@ class AddStoryActivity : AppCompatActivity() {
         viewModel.error.observe(this) { errorMessage ->
             Toast.makeText(this, "Error: $errorMessage", Toast.LENGTH_LONG).show()
         }
+
+        viewModel.loading.observe(this) {
+            showLoading(it)
+        }
+
     }
 
     private fun startCameraX() {
@@ -92,18 +98,9 @@ class AddStoryActivity : AppCompatActivity() {
     ) {
         if (it.resultCode == CameraActivity.CAMERAX_RESULT) {
             currentImageUri = it.data?.getStringExtra(CameraActivity.EXTRA_CAMERAX_IMAGE)?.toUri()
-            showImage()
-        }
-    }
-
-    private fun showImage() {
-        currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
-            val intent = Intent(this, AddStoryActivity::class.java)
-            intent.putExtra(EXTRA_CAMERAX_IMAGE, it)
-            intent.putExtra("token", loginData)
-            startActivity(intent)
-            finish()
+           currentImageUri?.let {
+               binding.imgPut.setImageURI(it)
+           }
         }
     }
 
@@ -186,6 +183,23 @@ class AddStoryActivity : AppCompatActivity() {
 
         return compressedFile
     }
+
+    private fun showLoading(a: Boolean) {
+        if (a) {
+            binding.progressCircular.visibility = View.VISIBLE
+        } else {
+            binding.progressCircular.visibility = View.GONE
+        }
+    }
+
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        val intent = Intent(this, MainActivity::class.java)
+//        intent.putExtra("token", loginData)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+//        startActivity(intent)
+//        finish()
+//    }
 
     companion object {
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"

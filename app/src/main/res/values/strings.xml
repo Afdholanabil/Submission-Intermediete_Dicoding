@@ -9,7 +9,7 @@
     <string name="tab_text_1">My List</string>
     <string name="tab_text_2">Other List</string>
     <string name="hi_total_story_anda_14_story">Hi ! your total story %1$d story</string>
-    <string name="selamat_datang">Welcome,</string>
+    <string name="selamat_datang">Welcome, %1$s</string>
     <string name="email_user">Email User</string>
     <string name="total_story_yang_anda_upload_adalah_story">The total story you upload is %1$d story</string>
     <string name="develop_by_wijang_afdholanabil_kusuma">Develop By Wijang Afdholanabil Kusuma</string>
@@ -47,4 +47,18 @@
     <string name="deskripsi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor sit amet cursus tincidunt. Quisque semper risus nulla. Fusce sit amet dictum nisl, eget gravida ex. Nam sit amet eleifend massa, mattis pulvinar nisi. Nullam fermentum suscipit pharetra. Praesent interdum feugiat malesuada. Suspendisse semper eros et ligula vehicula, sit amet gravida risus dictum. Ut quis leo sed nulla ullamcorper posuere. Mauris pretium ultricies massa ut malesuada. Proin vitae pellentesque tortor, et tristique leo. Nunc quis auctor mauris, mattis tristique metus.
 
 Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. Sed sed malesuada quam. Vestibulum quis efficitur diam. Maecenas eu sodales turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo magna, gravida id arcu ac, dictum elementum ligula. Duis sollicitudin dui eget metus iaculis tempor. Aenean id imperdiet metus. Nulla mollis lacus quis gravida pellentesque. Nulla congue justo semper, rutrum sem at, pretium orci. Mauris enim lectus, tincidunt id condimentum at, ullamcorper eu mauris. Proin tristique arcu sit amet lectus gravida vestibulum. Fusce dignissim felis ut nisi cursus lobortis. Donec pharetra quam quam, a condimentum urna molestie vel. Nam tristique vel ipsum id porttitor.</string>
+    <string name="select_language">Select Language</string>
+    <string name="error_regist_allnull">All inputs must be filled in</string>
+    <string name="error_regist_konfirmNotSame">Confirm the password is not the same as your password</string>
+    <string name="succes_regist">Registration Successed, Your account has been created !</string>
+    <string name="error_regist_inputmusteight">The input password must be more than 8 characters!</string>
+    <string name="error_regist">Failed to create your account!</string>
+    <string name="error_emailNotValid">Email not valid!</string>
+    <string name="anda_belum_pernah_menambahkan_cerita">You\'ve never added a story</string>
+    <string name="belum_ada_cerita_untuk_anda_saat_ini">There is no story for you at this time</string>
+    <string name="apple_register">apple_register</string>
+    <string name="google_register">google_register</string>
+    <string name="facebook_register">facebook_register</string>
+    <string name="Message_notYetAvailable">The feature not yet available</string>
+
 </resources>

@@ -3,14 +3,14 @@
     <string name="app_name">Submission_intermediete_dicoding</string>
     <string name="login">Masuk</string>
     <string name="email">Email</string>
-    <string name="password">Password</string>
+    <string name="password">Kata Sandi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="tab_text_1">List Saya</string>
     <string name="tab_text_2">List Lainnya</string>
     <string name="hi_total_story_anda_14_story">Hi ! total story anda %1$d story</string>
-    <string name="selamat_datang">Selamat datang,</string>
+    <string name="selamat_datang">Selamat datang, %1$s</string>
     <string name="email_user">Email User</string>
     <string name="total_story_yang_anda_upload_adalah_story">Total cerita yang Anda unggah adalah %1$d cerita</string>
     <string name="develop_by_wijang_afdholanabil_kusuma">Dikembangkan oleh Wijang Afdholanabil Kusuma</string>
@@ -48,4 +48,21 @@
     <string name="deskripsi">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ornare dolor sit amet cursus tincidunt. Quisque semper risus nulla. Fusce sit amet dictum nisl, eget gravida ex. Nam sit amet eleifend massa, mattis pulvinar nisi. Nullam fermentum suscipit pharetra. Praesent interdum feugiat malesuada. Suspendisse semper eros et ligula vehicula, sit amet gravida risus dictum. Ut quis leo sed nulla ullamcorper posuere. Mauris pretium ultricies massa ut malesuada. Proin vitae pellentesque tortor, et tristique leo. Nunc quis auctor mauris, mattis tristique metus.
 
 Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. Sed sed malesuada quam. Vestibulum quis efficitur diam. Maecenas eu sodales turpis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec leo magna, gravida id arcu ac, dictum elementum ligula. Duis sollicitudin dui eget metus iaculis tempor. Aenean id imperdiet metus. Nulla mollis lacus quis gravida pellentesque. Nulla congue justo semper, rutrum sem at, pretium orci. Mauris enim lectus, tincidunt id condimentum at, ullamcorper eu mauris. Proin tristique arcu sit amet lectus gravida vestibulum. Fusce dignissim felis ut nisi cursus lobortis. Donec pharetra quam quam, a condimentum urna molestie vel. Nam tristique vel ipsum id porttitor.</string>
+
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="error_regist_allnull">Semua masukan harus diisi</string>
+    <string name="error_regist_konfirmNotSame">Konfirmasikan kata sandi tidak sama dengan kata sandi Anda</string>
+    <string name="succes_regist">Pendaftaran Berhasil, Akun Anda telah dibuat!</string>
+    <string name="error_regist_inputmusteight">Input password harus lebih dari 8 karakter!</string>
+    <string name="error_regist">Gagal membuat akun anda!</string>
+    <string name="anda_belum_pernah_menambahkan_cerita">Anda belum pernah menambahkan cerita</string>
+    <string name="belum_ada_cerita_untuk_anda_saat_ini">Belum ada cerita untuk anda saat ini</string>
+    <string name="error_emailNotValid">Email tidak valid!</string>
+
+    <string name="apple_register">apple_register</string>
+    <string name="google_register">google_register</string>
+    <string name="facebook_register">facebook_register</string>
+    <string name="Message_notYetAvailable">Fitur belum tersedia</string>
+
+
 </resources>

@@ -79,11 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
-        binding.btnAddStory.setOnClickListener {
-            startActivity(Intent(this, AddStoryActivity::class.java))
-        }
-
-        binding.toolbar.title = ("Selamat Datang, " + loginData?.loginResult?.name) ?: "guest"
+        val getNameString = getString(R.string.selamat_datang, loginData.loginResult.name)
+        binding.toolbar.title = getNameString
         binding.btnAddStory.setOnClickListener { startCameraX()}
 
         val repository = Injection.provideStoryRepository(this)
@@ -91,7 +88,8 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.storyCount.observe(this) { data ->
             storyCount = data
-            binding.toolbar.subtitle = "Hi! total story anda $data story"
+            val getStringCount = getString(R.string.hi_total_story_anda_14_story, storyCount)
+            binding.toolbar.subtitle = getStringCount
         }
 
         binding.toolbar.setNavigationOnClickListener{
@@ -123,10 +121,8 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra(EXTRA_CAMERAX_IMAGE, it)
             intent.putExtra("token", loginData)
             startActivity(intent)
-            finish()
         }
     }
-
 
     companion object {
         @StringRes

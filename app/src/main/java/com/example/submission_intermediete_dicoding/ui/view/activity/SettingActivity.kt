@@ -3,8 +3,10 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.ActivitySettingBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.SettingViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactory
@@ -22,7 +24,8 @@ class SettingActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         val storyCount = intent.getIntExtra("storyCount",0)
         binding.tvProfile.text = email
-        binding.tvTotalStory.text = "Total story yang anda buat berjumlah $storyCount story"
+        val getStringCount = getString(R.string.total_story_yang_anda_upload_adalah_story, storyCount)
+        binding.tvTotalStory.text = getStringCount
 
         val pref = LoginPreference.getInstance(application.datastore)
         val settingViewModel = ViewModelProvider(this, ViewModelFactory(pref)).get(
@@ -40,6 +43,8 @@ class SettingActivity : AppCompatActivity() {
                 Log.d(TAG,"token-setting: $token")
             }
         }
+
+        setupAction()
     }
 
 
@@ -50,6 +55,13 @@ class SettingActivity : AppCompatActivity() {
         finish()
 
     }
+
+    private fun setupAction() {
+        binding.tvSelectLanguage.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+    }
+
     companion object {
         private const val TAG = "SettingActivity"
     }

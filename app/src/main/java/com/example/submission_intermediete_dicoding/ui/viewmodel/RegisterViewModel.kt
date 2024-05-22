@@ -1,9 +1,11 @@
 package com.example.submission_intermediete_dicoding.ui.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.RegisterResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiConfig
 import com.example.submission_intermediete_dicoding.util.Event
@@ -38,21 +40,22 @@ class RegisterViewModel :ViewModel() {
     private val _snackBar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackBar
 
-
     fun postRegister(nameP: String, emailP: String, passwordP: String) {
         _loading.value = true
         val call = ApiConfig.getApiService().postRegister(nameP, emailP, passwordP)
         call.enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
-                _loading.value = false
+
                 if (response.isSuccessful) {
-                    _registerDataResponse.value = response.body()
-                   Log.d(TAG, "OnResponse : ${response.message()}")
-                    _snackBar.value = Event("Selamat ! Akun anda berhasil dibuat")
+                    if (response.code() == 200 || response.code() == 201) {
+                        _loading.value = false
+                        _registerDataResponse.value = response.body()
+                        Log.d(TAG, "OnResponse : ${response.message()}")
+                        _snackBar.value = Event("Registrasi berhasil, Akun anda berhasil dibuat!")
+                    }
                 } else {
                     Log.d(TAG,"OnFail : ${response.message()}")
-                    _snackBar.value = Event("Gagal membuat akun")
-
+                    _snackBar.value = Event("Registrasi gagal!")
                 }
             }
 

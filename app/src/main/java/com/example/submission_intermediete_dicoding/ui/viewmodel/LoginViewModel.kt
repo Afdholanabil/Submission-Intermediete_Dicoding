@@ -39,6 +39,7 @@ class LoginViewModel(private val preferences: LoginPreference) : ViewModel() {
                     Log.d(TAG, "data: ${response.body()}")
                     _snackBar.value = Event("Berhasil Login !")
                 } else {
+                    _loading.value = false
                     Log.d(TAG,"OnFail : ${response.message()}")
                     _snackBar.value = Event("Gagal Login !")
                 }

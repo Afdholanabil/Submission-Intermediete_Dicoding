@@ -17,6 +17,7 @@ import com.example.submission_intermediete_dicoding.ui.adapter.AllStoryAdapter
 import com.example.submission_intermediete_dicoding.ui.adapter.MyStoryAdapter
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,6 +66,15 @@ class MyListFragment : Fragment() {
             }
         }
         myStoryViewModel.getMyStoryALl()
+        myStoryViewModel.loading.observe(requireActivity()) {
+            showLoading(it)
+        }
+
+        myStoryViewModel.snackbar.observe(requireActivity()) {
+            it.getContentIfNotHandled()?.let { snackBar ->
+                Snackbar.make(requireView(), snackBar, Snackbar.LENGTH_SHORT).show()
+            }
+        }
     }
 
     companion object {
@@ -90,6 +100,12 @@ class MyListFragment : Fragment() {
     private fun setListData(data: List<MyStory>) {
         val adapter = MyStoryAdapter(data, requireActivity())
         binding.rvMyListStory.adapter = adapter
+
+        if (data.isEmpty()) {
+            binding.tvFollow.visibility = View.VISIBLE
+        } else {
+            binding.tvFollow.visibility = View.GONE
+        }
     }
 
     private fun setupRecyclerView() {
@@ -99,4 +115,13 @@ class MyListFragment : Fragment() {
         binding.rvMyListStory.addItemDecoration(itemDecoration)
         binding.rvMyListStory.adapter = MyStoryAdapter(emptyList(), requireActivity())
     }
+
+    private fun showLoading(a: Boolean) {
+        if (a) {
+            binding.progressCircular.visibility = View.VISIBLE
+        } else {
+            binding.progressCircular.visibility = View.GONE
+        }
+    }
+
 }
