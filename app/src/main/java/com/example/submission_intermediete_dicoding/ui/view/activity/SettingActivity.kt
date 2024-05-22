@@ -47,7 +47,6 @@ class SettingActivity : AppCompatActivity() {
         setupAction()
     }
 
-
     private fun navigateToLoginActivity() {
         val intent = Intent(this, FirstBoardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

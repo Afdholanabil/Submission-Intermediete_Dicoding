@@ -14,7 +14,6 @@ import kotlinx.coroutines.flow.map
 val Context.datastore :DataStore<Preferences> by preferencesDataStore(name = "login")
 class LoginPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val TOKEN_KEY = stringPreferencesKey("login_token")
     private val LOGIN_RESPONSE_KEY = stringPreferencesKey("login_response")
 
     suspend fun saveLoginSession(token: LoginResponse) {

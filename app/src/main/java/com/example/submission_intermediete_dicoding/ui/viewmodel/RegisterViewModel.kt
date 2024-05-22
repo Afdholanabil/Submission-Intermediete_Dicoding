@@ -1,11 +1,9 @@
 package com.example.submission_intermediete_dicoding.ui.viewmodel
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.RegisterResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiConfig
 import com.example.submission_intermediete_dicoding.util.Event
@@ -76,18 +74,6 @@ class RegisterViewModel :ViewModel() {
 
     fun setEditTextLength(length: Int) {
         _editTextLenght.value = length
-    }
-
-    fun confirmCheck() {
-        val password = _password.value
-        val confirmPassword = _confirmEt.value
-
-        val check = password == confirmPassword
-        _isConfirmSame.value = check
-    }
-
-    fun setConfirmPassword(confirm : String) {
-        _confirmEt.value = confirm
     }
 
     companion object {

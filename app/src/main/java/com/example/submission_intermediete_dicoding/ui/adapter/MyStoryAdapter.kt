@@ -10,13 +10,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_intermediete_dicoding.R
-import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
 
 class MyStoryAdapter(private val stroies: List<MyStory>, private val context: Context) : RecyclerView.Adapter<MyStoryAdapter.MyStoryViewHolder>() {
     inner class MyStoryViewHolder(itemView : View): RecyclerView.ViewHolder(itemView) {
-        val tvDesc : TextView = itemView.findViewById(R.id.tv_desc)
-        val ivcContent : ImageView = itemView.findViewById(R.id.iv_content)
+        private val tvDesc : TextView = itemView.findViewById(R.id.tv_desc)
+        private val ivcContent : ImageView = itemView.findViewById(R.id.iv_content)
 
         fun bind(story: MyStory) {
             Glide.with(context).load(story.photoUrl).into(ivcContent)
@@ -27,7 +27,6 @@ class MyStoryAdapter(private val stroies: List<MyStory>, private val context: Co
                 intent.putExtra(TAG_USERNAME,"Owner")
                 intent.putExtra(TAG_PHOTO,story.photoUrl)
                 intent.putExtra(TAG_DESC,story.desc)
-
                 context.startActivity(intent)
             }
         }

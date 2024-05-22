@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.FragmentOnBoardSecondScreenBinding
 
 // TODO: Rename parameter arguments, choose names that match

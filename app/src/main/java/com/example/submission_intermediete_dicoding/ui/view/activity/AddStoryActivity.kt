@@ -2,7 +2,6 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -10,7 +9,6 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -18,10 +16,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
-import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
-import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.databinding.ActivityAddStoryBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
@@ -112,8 +109,7 @@ class AddStoryActivity : AppCompatActivity() {
             Toast.makeText(this, "Description cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
-        val photoBitmap = (binding.imgPut.drawable as BitmapDrawable).bitmap
-        val photoFile = bitmapToFile(photoBitmap)
+
         val compressedPhotoFile = compressImageFile(photoFile2)
         val photoUri = Uri.fromFile(compressedPhotoFile)
         try {
@@ -191,15 +187,6 @@ class AddStoryActivity : AppCompatActivity() {
             binding.progressCircular.visibility = View.GONE
         }
     }
-
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        val intent = Intent(this, MainActivity::class.java)
-//        intent.putExtra("token", loginData)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-//        startActivity(intent)
-//        finish()
-//    }
 
     companion object {
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"

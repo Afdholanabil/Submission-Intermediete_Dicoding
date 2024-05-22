@@ -1,4 +1,4 @@
-package com.example.submission_intermediete_dicoding.database.MyStory
+package com.example.submission_intermediete_dicoding.database.myStory
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -7,8 +7,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.submission_intermediete_dicoding.database.AllStory.AllStory
-import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
 
 @Dao
 interface MyStorydao {

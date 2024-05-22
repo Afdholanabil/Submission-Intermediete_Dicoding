@@ -7,16 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.submission_intermediete_dicoding.data.response.AddStoryResponse
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
-import com.example.submission_intermediete_dicoding.data.response.StoryResponse
-import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.util.Event
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel() {
@@ -61,18 +58,6 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
         }
     }
 
-    fun addStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
-        viewModelScope.launch {
-            try {
-                val requestFile = photoFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-                val photo = MultipartBody.Part.createFormData("photo", photoFile.name, requestFile)
-                storyRepository.addStory(description, photo, lat, lon, myStory)
-            } catch (e: Exception) {
-               Log.e(TAG,"Error : $e")
-            }
-        }
-    }
-
     fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
         _loading.value = true
         if (photoFile.length() > 1_000_000) {
@@ -110,7 +95,6 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
         }
     }
-
 
     companion object {
         private const val TAG = "StoryViewModel"

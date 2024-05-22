@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.FragmentOnBoardFirstScreenBinding
 
 private const val ARG_PARAM1 = "param1"
@@ -30,11 +29,8 @@ class OnBoardFirstScreen : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentOnBoardFirstScreenBinding.inflate(inflater, container, false)
-
-        // Hapus logika onClick untuk tombol Next
-
         binding.btnNext.setOnClickListener {
             onNextClickListener?.invoke()
         }

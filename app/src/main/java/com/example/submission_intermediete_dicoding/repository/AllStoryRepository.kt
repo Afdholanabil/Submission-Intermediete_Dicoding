@@ -2,9 +2,9 @@ package com.example.submission_intermediete_dicoding.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.example.submission_intermediete_dicoding.database.AllStory.AllStory
-import com.example.submission_intermediete_dicoding.database.AllStory.AllStoryDao
-import com.example.submission_intermediete_dicoding.database.AllStory.AllStoryRoomDatabase
+import com.example.submission_intermediete_dicoding.database.allStory.AllStory
+import com.example.submission_intermediete_dicoding.database.allStory.AllStoryDao
+import com.example.submission_intermediete_dicoding.database.allStory.AllStoryRoomDatabase
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

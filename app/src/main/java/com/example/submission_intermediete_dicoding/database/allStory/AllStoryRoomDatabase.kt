@@ -1,4 +1,4 @@
-package com.example.submission_intermediete_dicoding.database.AllStory
+package com.example.submission_intermediete_dicoding.database.allStory
 
 import android.content.Context
 import androidx.room.Database

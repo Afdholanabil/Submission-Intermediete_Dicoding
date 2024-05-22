@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.databinding.ActivityLoginBinding
@@ -17,7 +15,6 @@ import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactor
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import com.example.submission_intermediete_dicoding.util.datastore
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -116,7 +113,6 @@ class LoginActivity : AppCompatActivity() {
     private fun isValidEmail(email: CharSequence?): Boolean {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
 
     companion object {
         private const val TAG = "LoginActivity"

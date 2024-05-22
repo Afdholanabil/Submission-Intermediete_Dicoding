@@ -5,7 +5,7 @@ import com.example.submission_intermediete_dicoding.data.response.RegisterRespon
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiService
 
 class UserRepository(private val apiService: ApiService) {
-    suspend fun login(email: String, password: String): LoginResponse {
+    fun login(email: String, password: String): LoginResponse {
     val response = apiService.postLogin(email, password).execute()
     return if (response.isSuccessful) {
         response.body() ?: throw Exception("Login failed")
@@ -14,7 +14,7 @@ class UserRepository(private val apiService: ApiService) {
     }
 }
 
-    suspend fun register(name: String, email: String, password: String): RegisterResponse {
+    fun register(name: String, email: String, password: String): RegisterResponse {
         val response = apiService.postRegister(name, email, password).execute()
         return if (response.isSuccessful) {
             response.body() ?: throw Exception("Registration failed")

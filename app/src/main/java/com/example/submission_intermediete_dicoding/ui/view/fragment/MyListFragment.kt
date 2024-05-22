@@ -8,12 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submission_intermediete_dicoding.R
-import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
-import com.example.submission_intermediete_dicoding.database.MyStory.MyStory
+import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.databinding.FragmentMyListBinding
-import com.example.submission_intermediete_dicoding.ui.adapter.AllStoryAdapter
 import com.example.submission_intermediete_dicoding.ui.adapter.MyStoryAdapter
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory

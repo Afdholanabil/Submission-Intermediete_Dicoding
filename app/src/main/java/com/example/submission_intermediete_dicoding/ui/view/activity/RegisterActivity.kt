@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModel
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.ActivityRegisterBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.RegisterViewModel
@@ -22,7 +20,6 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         registerViewModel.loading.observe(this) {
             showLoading(it)

@@ -14,7 +14,6 @@ class SettingViewModel(private val pref : LoginPreference) : ViewModel() {
         return pref.getLoginSession().asLiveData()
     }
 
-
     fun logout() {
         viewModelScope.launch {
             pref.removeSession()

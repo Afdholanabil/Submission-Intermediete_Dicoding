@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
-import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.ActivityOnBoardBinding
 import com.example.submission_intermediete_dicoding.ui.adapter.OnBoardInteractionListener
 import com.example.submission_intermediete_dicoding.ui.adapter.OnBoardPageAdaprter
@@ -51,8 +49,6 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
             binding.vpOnboard.setCurrentItem(nextPage, true)
         } else {
             finish()
-
-
         }
     }
 

@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
-import com.example.submission_intermediete_dicoding.data.response.StoryResponse
-import com.example.submission_intermediete_dicoding.database.AllStory.AllStory
 import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
 
 class AllStoryAdapter(private var stories: List<ListStoryItem>, private val context: Context) : RecyclerView.Adapter<AllStoryAdapter.AllStoryViewHolder>() {
@@ -27,7 +25,6 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
     override fun onBindViewHolder(holder: AllStoryViewHolder, position: Int) {
         val storyB = stories[position]
         holder.bind(storyB)
-
     }
 
     inner class AllStoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,7 +47,6 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
 
                 context.startActivity(intent)
             }
-
         }
     }
 
