@@ -18,5 +18,4 @@ class OnBoardViewModel(private val pref : OnBoardPreference) : ViewModel() {
             pref.saveOnboardSession(isOnBoarded)
         }
     }
-
 }

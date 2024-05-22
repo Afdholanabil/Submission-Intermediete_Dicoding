@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000"
+        motion:autoTransition="animateToEnd">
+       <KeyFrameSet>
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/tv_title"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="40dp"
+            motion:layout_constraintBottom_toTopOf="@id/cv_container"
+            motion:layout_constraintHorizontal_bias="1.0"
+            motion:transitionEasing="cubic(0.73,0.14,0.8,0.8)"
+            android:layout_marginStart="0dp"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/tv_subtitle"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="40dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title"
+            android:visibility="invisible" />
+        <Constraint
+            android:id="@+id/iv1"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintDimensionRatio="H,2:1"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="100dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="0dp" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/iv1"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintDimensionRatio="H,2:1"
+            motion:layout_constraintStart_toStartOf="parent" />
+        <Constraint
+            android:id="@+id/tv_title"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="40dp"
+            motion:layout_constraintBottom_toTopOf="@id/cv_container" />
+        <Constraint
+            android:id="@+id/tv_subtitle"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="40dp"
+            motion:layout_constraintTop_toBottomOf="@id/tv_title" />
+    </ConstraintSet>
+</MotionScene>

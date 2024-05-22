@@ -51,6 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        app:startIconDrawable="@drawable/profile_1"
+        app:startIconTint="@color/p2"
         app:layout_constraintTop_toBottomOf="@id/tv_subtitle_register">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_name"
@@ -64,6 +66,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        app:startIconDrawable="@drawable/message"
+        app:startIconTint="@color/p2"
         app:layout_constraintTop_toBottomOf="@id/tl_name">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email"
@@ -78,12 +82,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        app:passwordToggleDrawable="@drawable/profile_1_black"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/p2"
+        app:startIconDrawable="@drawable/lock_1"
+        app:startIconTint="@color/p2"
         app:layout_constraintTop_toBottomOf="@id/tl_email">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,11 +100,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
+        app:endIconMode="password_toggle"
+        app:endIconTint="@color/p2"
+        app:startIconDrawable="@drawable/lock_1"
+        app:startIconTint="@color/p2"
         app:layout_constraintTop_toBottomOf="@id/tl_pw">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_confirm_pw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="@string/confirm_password"/>
     </com.google.android.material.textfield.TextInputLayout>
 

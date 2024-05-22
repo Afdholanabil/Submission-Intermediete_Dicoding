@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.submission_intermediete_dicoding.R
@@ -45,7 +47,7 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
                     intent.putExtra(TAG_PHOTO, story.photoUrl)
                     intent.putExtra(TAG_DESC, story.description)
 
-                context.startActivity(intent)
+                itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
             }
         }
     }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    app:layoutDescription="@xml/activity_first_board_scene"
     tools:context=".ui.view.activity.FirstBoardActivity">
 
     <ImageView
@@ -15,41 +16,39 @@
         android:src="@drawable/image2"
         app:layout_constraintDimensionRatio="H,2:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <view
         android:id="@+id/tv_title"
         class="android.widget.TextView"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        app:layout_constraintBottom_toTopOf="@id/cv_container"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:textColor="@color/white"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/interblack"
+        android:gravity="center"
         android:text="@string/connect_the_other"
-        android:layout_marginBottom="40dp"
-        >
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="395dp">
 
     </view>
+
     <view
         android:id="@+id/tv_subtitle"
         class="android.widget.TextView"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="@color/white"
-        android:fontFamily="@font/satoshiregular"
-        android:text="@string/let_create_an_untold_story"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        >
+        android:fontFamily="@font/satoshiregular"
+        android:gravity="center"
+        android:text="@string/let_create_an_untold_story"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
 
     </view>
 
@@ -59,8 +58,8 @@
         android:layout_height="250dp"
         android:background="@drawable/card_bg_round"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -70,41 +69,41 @@
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_new_account"
-                android:textSize="16sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:drawableEnd="@drawable/baseline_arrow_forward_ios_24_white"
                 android:fontFamily="@font/satoshibold"
                 android:padding="15dp"
-                android:drawableEnd="@drawable/baseline_arrow_forward_ios_24_white"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toTopOf="parent"
+                android:text="@string/create_new_account"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_toLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/satoshibold"
                 android:text="@string/desc_first_Board1"
                 android:textColor="@color/p1"
                 android:textSize="16sp"
-                android:layout_marginTop="15dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_register"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
             <LinearLayout
                 android:id="@+id/ll1"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                app:layout_constraintTop_toBottomOf="@id/tv_toLogin"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_toLogin"
                 tools:ignore="MissingConstraints">
 
                 <com.google.android.material.divider.MaterialDivider
@@ -117,9 +116,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/or_sign_in_with"
-                    android:textSize="12sp"
                     android:textColor="@color/black2"
-                    />
+                    android:textSize="12sp" />
 
                 <com.google.android.material.divider.MaterialDivider
                     android:layout_width="100dp"
@@ -132,37 +130,38 @@
                 android:id="@+id/apple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_apple"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_icon_rounded"
-                app:layout_constraintTop_toBottomOf="@id/ll1"
-                app:layout_constraintStart_toStartOf="parent"
+                android:contentDescription="@string/apple_register"
+                android:src="@drawable/icon_apple"
                 app:layout_constraintEnd_toStartOf="@id/google"
-                android:contentDescription="@string/apple_register" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll1" />
 
             <ImageView
                 android:id="@+id/google"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_google"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_icon_rounded"
-                app:layout_constraintTop_toBottomOf="@id/ll1"
-                app:layout_constraintStart_toEndOf="@id/apple"
+                android:contentDescription="@string/google_register"
+                android:src="@drawable/icon_google"
                 app:layout_constraintEnd_toStartOf="@id/facebook"
-                android:contentDescription="@string/google_register" />
+                app:layout_constraintStart_toEndOf="@id/apple"
+                app:layout_constraintTop_toBottomOf="@id/ll1" />
+
             <ImageView
                 android:id="@+id/facebook"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_facebook"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_icon_rounded"
-                app:layout_constraintTop_toBottomOf="@id/ll1"
-                app:layout_constraintStart_toEndOf="@id/google"
+                android:contentDescription="@string/facebook_register"
+                android:src="@drawable/icon_facebook"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:contentDescription="@string/facebook_register" />
+                app:layout_constraintStart_toEndOf="@id/google"
+                app:layout_constraintTop_toBottomOf="@id/ll1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
