@@ -24,7 +24,7 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
         setContentView(binding.root)
 
 
-        val pref =OnBoardPreference.getInstance(application.datastore)
+        val pref = OnBoardPreference.getInstance(application.datastore)
 
         viewModel = ViewModelProvider(this, onBoardViewModelFactory(pref)).get(
             OnBoardViewModel::class.java
@@ -37,7 +37,7 @@ class OnBoardActivity : AppCompatActivity(), OnBoardInteractionListener {
 
         viewModel.getOnBoardSession().observe(this) {isDone ->
             if (isDone) {
-                startActivity(Intent(this, FirstBoardActivity::class.java))
+                startActivity(Intent(this, LoginActivity::class.java))
 
             }
         }

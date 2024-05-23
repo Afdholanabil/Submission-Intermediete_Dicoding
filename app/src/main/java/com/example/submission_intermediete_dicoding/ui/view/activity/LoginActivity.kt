@@ -3,13 +3,16 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.databinding.ActivityLoginBinding
+import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.ui.viewmodel.LoginViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactory
 import com.example.submission_intermediete_dicoding.util.LoginPreference
@@ -100,6 +103,34 @@ class LoginActivity : AppCompatActivity() {
         binding.google.setOnClickListener {
             Snackbar.make(window.decorView.rootView,R.string.Message_notYetAvailable, Snackbar.LENGTH_SHORT).show()
         }
+
+        setMyButtonEnable()
+
+        binding.etPw.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setMyButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
+        binding.etEmail.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setMyButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
     }
 
     private fun showLoading(a: Boolean) {
@@ -112,6 +143,15 @@ class LoginActivity : AppCompatActivity() {
 
     private fun isValidEmail(email: CharSequence?): Boolean {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun setMyButtonEnable() {
+        val emailR = binding.etEmail.text
+        val passR = binding.etPw.text
+
+        val resultE = emailR != null && emailR.toString().isNotEmpty()
+        val resultP = passR != null && passR.toString().isNotEmpty()
+        binding.btnLogin.isEnabled = resultP && resultE
     }
 
     companion object {

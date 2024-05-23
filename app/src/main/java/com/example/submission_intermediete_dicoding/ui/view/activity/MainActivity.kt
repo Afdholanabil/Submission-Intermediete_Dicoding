@@ -98,6 +98,7 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("storyCount", storyCount)
             startActivity(intent)
         }
+
     }
 
     private fun startCameraX() {
@@ -134,5 +135,6 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
+
     }
 }

@@ -2,6 +2,7 @@ package com.example.submission_intermediete_dicoding.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 
 class ViewModelFactory(private val preferences: LoginPreference): ViewModelProvider.NewInstanceFactory() {

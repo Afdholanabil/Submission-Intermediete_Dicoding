@@ -34,14 +34,12 @@ class OnBoardSecondScreen : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentOnBoardSecondScreenBinding.inflate(inflater, container, false)
-
 
         binding.btnFinish.setOnClickListener {
             onFinishClickListener?.invoke()
         }
-
         return binding.root
     }
 

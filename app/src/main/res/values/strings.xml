@@ -60,5 +60,11 @@ Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. 
     <string name="google_register">google_register</string>
     <string name="facebook_register">facebook_register</string>
     <string name="Message_notYetAvailable">The feature not yet available</string>
+    <string name="myeditText_password_hint">Enter your password</string>
+    <string name="story_succes_get_story">Success getting the story!</string>
+    <string name="story_failed_get_story">Failed getting the story!</string>
+    <string name="story_error_get_story">An error occurred while loading!</string>
+    <string name="invalid_email_error">Invalid email</string>
+    <string name="login_needInput">Fill all input</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.ActivitySettingBinding
+import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.ui.viewmodel.SettingViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactory
 import com.example.submission_intermediete_dicoding.util.LoginPreference
@@ -16,6 +17,7 @@ import com.example.submission_intermediete_dicoding.util.datastore
 class SettingActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivitySettingBinding
+    private lateinit var myStoryRepository: MyStoryRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)

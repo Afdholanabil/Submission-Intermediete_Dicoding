@@ -1,5 +1,6 @@
 package com.example.submission_intermediete_dicoding.ui.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,6 +36,7 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
     private val _snackBar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackBar
+
     fun getStories() {
         _loading.value = true
         viewModelScope.launch {
