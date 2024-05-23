@@ -12,8 +12,10 @@ import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.util.Event
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
@@ -61,13 +63,14 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
     }
 
     fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
+
         _loading.value = true
         if (photoFile.length() > 1_000_000) {
             _loading.value = true
             _error.value = "File size should be less than 1MB"
             return
         }
-
+        val descriptionPart = RequestBody.create("text/plain".toMediaTypeOrNull(), description)
         val photoPart = MultipartBody.Part.createFormData(
             "photo",
             photoFile.name,
@@ -77,7 +80,7 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
         viewModelScope.launch {
             try {
                 _loading.value = false
-                val response = storyRepository.addStory(description, photoPart, lat, lon, myStory)
+                val response = storyRepository.addStory(descriptionPart, photoPart, lat, lon, myStory)
                 _addStoryResponse.value = response
                 _snackBar.value = Event("Berhasil menambahkan cerita!")
             } catch (e: Exception) {

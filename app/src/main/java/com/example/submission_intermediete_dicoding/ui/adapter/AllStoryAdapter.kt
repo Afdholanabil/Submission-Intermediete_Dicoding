@@ -43,9 +43,9 @@ class AllStoryAdapter(private var stories: List<ListStoryItem>, private val cont
 
             itemView.setOnClickListener {
                 val intent = Intent(context, DetailActivity::class.java)
-                    intent.putExtra(TAG_USERNAME, story.name)
-                    intent.putExtra(TAG_PHOTO, story.photoUrl)
-                    intent.putExtra(TAG_DESC, story.description)
+                intent.putExtra(TAG_USERNAME, story.name)
+                intent.putExtra(TAG_PHOTO, story.photoUrl)
+                intent.putExtra(TAG_DESC, story.description)
 
                 itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
             }

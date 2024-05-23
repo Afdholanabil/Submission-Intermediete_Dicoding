@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -28,7 +29,7 @@ class MyStoryRepository private constructor(
     }
 
     suspend fun addStory(
-        description: String,
+        description: RequestBody?,
         photo: MultipartBody.Part,
         lat: Double?,
         lon: Double?,
