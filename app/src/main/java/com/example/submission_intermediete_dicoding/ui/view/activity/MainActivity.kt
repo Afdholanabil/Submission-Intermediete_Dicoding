@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "email : $loginEmail")
 
         Log.d(TAG, "loginData : $loginData")
-        Log.d(TAG, "loginData-name : ${loginData?.loginResult?.name}")
+        Log.d(TAG, "loginData-name : ${loginData.loginResult.name}")
 
 
 

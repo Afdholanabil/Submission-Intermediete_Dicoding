@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import com.example.submission_intermediete_dicoding.R
 
-class MyButton @JvmOverloads constructor(
+class MyButtonRegist @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatButton(context, attrs) {
 
@@ -28,6 +28,6 @@ class MyButton @JvmOverloads constructor(
         setTextColor(txtColor)
         textSize = 16f
         gravity = Gravity.CENTER
-        text = if(isEnabled) context.getString(R.string.login) else context.getString(R.string.login_needInput)
+        text = if(isEnabled) context.getString(R.string.sign_up) else context.getString(R.string.login_needInput)
     }
 }

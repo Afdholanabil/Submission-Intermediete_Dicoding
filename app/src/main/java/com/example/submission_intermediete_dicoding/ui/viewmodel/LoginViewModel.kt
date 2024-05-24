@@ -8,7 +8,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiConfig
-import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.util.Event
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import kotlinx.coroutines.launch

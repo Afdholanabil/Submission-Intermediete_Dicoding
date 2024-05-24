@@ -34,7 +34,7 @@ class MyEmailEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Email"
+        hint = context.getString(R.string.email_hint)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -46,12 +46,12 @@ class MyEmailEditText @JvmOverloads constructor(
         }
     }
 
-    private fun showError() {
+    fun showError() {
         setError(context.getString(R.string.invalid_email_error))
         setButtonDrawables(endOfTheText = errorDrawable)
     }
 
-    private fun hideError() {
+    fun hideError() {
         setError(null)
         setButtonDrawables()
     }
@@ -75,7 +75,7 @@ class MyEmailEditText @JvmOverloads constructor(
             }
 
             if (isDrawableClicked) {
-                when (event?.action) {
+                when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
 
                         return true

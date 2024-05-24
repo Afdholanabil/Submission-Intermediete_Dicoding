@@ -19,22 +19,6 @@ class RegisterViewModel :ViewModel() {
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
 
-    private val _editTextLenght = MutableLiveData<Int>()
-    val editTextLenght : LiveData<Int> = _editTextLenght
-
-    private val _isInputValid = MutableLiveData<Boolean>()
-    val isInputValid : LiveData<Boolean> = _isInputValid
-
-    private val _password = MutableLiveData<String>()
-    val password: LiveData<String> = _password
-
-
-    private val _confirmEt = MutableLiveData<String>()
-    val confirmEt : LiveData<String> = _confirmEt
-
-    private val _isConfirmSame = MutableLiveData<Boolean>()
-    val isConfirmSame : LiveData<Boolean> = _isConfirmSame
-
     private val _snackBar = MutableLiveData<Event<String>>()
     val snackbar : LiveData<Event<String>> = _snackBar
 
@@ -64,16 +48,6 @@ class RegisterViewModel :ViewModel() {
 
             }
         })
-    }
-
-    fun checkPwLenght() {
-        val lenght = _editTextLenght.value ?: 0
-        _isInputValid.value = lenght>= 8
-
-    }
-
-    fun setEditTextLength(length: Int) {
-        _editTextLenght.value = length
     }
 
     companion object {

@@ -3,7 +3,9 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
@@ -25,22 +27,6 @@ class RegisterActivity : AppCompatActivity() {
             showLoading(it)
         }
 
-        registerViewModel.editTextLenght.observe(this) {lenght ->
-            registerViewModel.checkPwLenght()
-        }
-
-        registerViewModel.isInputValid.observe(this) {isValid ->
-            if (!isValid) {
-                binding.etPw.error = getString(R.string.error_regist_inputmusteight)
-            } else {
-                binding.etPw.error = null
-            }
-        }
-
-        binding.etPw.addTextChangedListener { editable ->
-            editable?.length?.let {
-                registerViewModel.setEditTextLength(it) }
-        }
 
         binding.tvToLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -63,29 +49,98 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+
         binding.btnRegister.setOnClickListener {
             val inputName = binding.etName.text.toString()
             val inputEmail = binding.etEmail.text.toString()
             val inputPassword = binding.etPw.text.toString()
             val inputConfirmPassword = binding.etConfirmPw.text.toString()
-
             if (inputName.isNotEmpty() && inputEmail.isNotEmpty() && inputPassword.isNotEmpty() && inputConfirmPassword.isNotEmpty()) {
-                if (inputPassword == inputConfirmPassword) {
-                    binding.etConfirmPw.error = null
-                    if (isValidEmail(inputEmail)) {
-                        binding.etEmail.error = null
-                        registerViewModel.postRegister(inputName, inputEmail, inputPassword)
+                if (isValidEmail(inputEmail)) {
+                    binding.etEmail.hideError()
+                    if (inputPassword.length >= 8) {
+                        binding.etPw.hideError()
+                        if (inputPassword == inputConfirmPassword) {
+                            binding.etConfirmPw.error = null
+
+                            registerViewModel.postRegister(inputName, inputEmail, inputPassword)
+                        } else {
+                            binding.etConfirmPw.error = getString(R.string.error_confirm_password)
+                        }
                     } else {
-                        binding.etEmail.error = getString(R.string.error_emailNotValid)
+                        binding.etPw.showError()
                     }
                 } else {
-                    binding.etConfirmPw.error = getString(R.string.error_regist_konfirmNotSame)
+                    binding.etEmail.showError()
                 }
             } else {
                 Snackbar.make(window.decorView.rootView, R.string.error_regist_allnull, Snackbar.LENGTH_SHORT).show()
             }
+
         }
+        setRegisterButtonEnable()
+
+        binding.etName.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setRegisterButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.etEmail.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setRegisterButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.etPw.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setRegisterButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
+        binding.etConfirmPw.addTextChangedListener(object: TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setRegisterButtonEnable()
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
     }
+
 
     private fun isValidEmail(email: CharSequence?): Boolean {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
@@ -98,5 +153,21 @@ class RegisterActivity : AppCompatActivity() {
             binding.progressCircular.visibility = View.GONE
         }
     }
+
+    private fun setRegisterButtonEnable() {
+        val name = binding.etName.text
+        val email = binding.etEmail.text
+        val password = binding.etPw.text
+        val confirmPassword = binding.etConfirmPw.text
+
+        val nameR = name != null && name.toString().isNotEmpty()
+        val emailR = email != null && email.toString().isNotEmpty()
+        val passwordR = password != null && password.toString().isNotEmpty()
+        val confirmPwR = confirmPassword != null && confirmPassword.toString().isNotEmpty()
+
+        binding.btnRegister.isEnabled = nameR && emailR && passwordR && confirmPwR
+    }
+
+
 
 }

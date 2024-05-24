@@ -66,5 +66,10 @@ Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. 
     <string name="story_error_get_story">An error occurred while loading!</string>
     <string name="invalid_email_error">Invalid email</string>
     <string name="login_needInput">Fill all input</string>
+    <string name="error_password_length">Password length must be more than 8 characters</string>
+    <string name="email_hint">Enter your email</string>
+    <string name="confirmPw_hint">Enter confirm password</string>
+    <string name="name_hint">Enter your name</string>
+    <string name="error_confirm_password">Confirm password is not the same</string>
 
 </resources>

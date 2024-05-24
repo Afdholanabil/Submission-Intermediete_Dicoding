@@ -12,36 +12,45 @@ import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
 import com.example.submission_intermediete_dicoding.R
 
-class MyPasswordEditText @JvmOverloads constructor(
+class MyConfirmPwEditText @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : AppCompatEditText(context, attrs), View.OnTouchListener {
     private var showButtonDrawable: Drawable
     private var hideButtonDrawable: Drawable
-    private var isPasswordVisible : Boolean = false
+    private var isPasswordVisible: Boolean = false
 
     init {
         showButtonDrawable = ContextCompat.getDrawable(context, R.drawable.show) as Drawable
         hideButtonDrawable = ContextCompat.getDrawable(context, R.drawable.hide) as Drawable
+
         setOnTouchListener(this)
         updatePasswordVisibility()
+
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = context.getString(R.string.myeditText_password_hint)
+        hint = context.getString(R.string.confirmPw_hint)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
-
 
     private fun showShowButton() {
         setButtonDrawables(endOfTheText = showButtonDrawable)
     }
+
     private fun showHideButton() {
         setButtonDrawables(endOfTheText = hideButtonDrawable)
     }
 
-    private fun setButtonDrawables(startOfTheText: Drawable? = null, topOfTheText:Drawable? = null, endOfTheText:Drawable? = null, bottomOfTheText: Drawable? = null){
-        setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, endOfTheText, bottomOfTheText)
+    private fun setButtonDrawables(
+        startOfTheText: Drawable? = null,
+        topOfTheText: Drawable? = null,
+        endOfTheText: Drawable? = null,
+        bottomOfTheText: Drawable? = null
+    ) {
+        setCompoundDrawablesWithIntrinsicBounds(
+            startOfTheText, topOfTheText, endOfTheText, bottomOfTheText
+        )
     }
 
     override fun onTouch(p0: View?, event: MotionEvent?): Boolean {

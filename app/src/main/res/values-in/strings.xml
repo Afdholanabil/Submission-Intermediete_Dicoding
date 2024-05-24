@@ -69,6 +69,11 @@ Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. 
     <string name="story_error_get_story">Terjadi kesalahan saat memuat!</string>
     <string name="invalid_email_error">Email tidak valid</string>
     <string name="login_needInput">Isi semua input</string>
+    <string name="error_password_length">Panjang kata sandi harus lebih dari 8 karakter</string>
+    <string name="email_hint">Masukan email</string>
+    <string name="confirmPw_hint">Masukan konfirmasi kata sandi</string>
+    <string name="name_hint">Masukan nama anda</string>
+    <string name="error_confirm_password">Konfirmasi kata sandi tidak sama</string>
 
 
 </resources>

@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.databinding.ActivityLoginBinding
-import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.ui.viewmodel.LoginViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactory
 import com.example.submission_intermediete_dicoding.util.LoginPreference
