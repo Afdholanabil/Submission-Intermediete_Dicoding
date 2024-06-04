@@ -71,5 +71,7 @@ Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. 
     <string name="confirmPw_hint">Enter confirm password</string>
     <string name="name_hint">Enter your name</string>
     <string name="error_confirm_password">Confirm password is not the same</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="maps">Maps</string>
 
 </resources>

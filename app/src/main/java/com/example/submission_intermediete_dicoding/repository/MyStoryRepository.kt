@@ -1,11 +1,16 @@
 package com.example.submission_intermediete_dicoding.repository
 
 import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.submission_intermediete_dicoding.data.response.AddStoryResponse
+import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.response.StoryResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiService
 import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.database.myStory.MyStorydao
+import com.example.submission_intermediete_dicoding.repository.paging.StoryPagingSource
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -15,6 +20,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+
 
 class MyStoryRepository private constructor(
     private val apiService : ApiService,
@@ -26,6 +32,24 @@ class MyStoryRepository private constructor(
     suspend fun getStories(): StoryResponse {
         val token = runBlocking { loginPreference.getLoginSession().first()?.loginResult?.token }
         return apiService.getStories("Bearer $token")
+    }
+
+    fun getStoriesWithPaging(): Pager<Int, ListStoryItem> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 5
+            ),
+            pagingSourceFactory = {
+                StoryPagingSource(apiService)
+            }
+        )
+    }
+
+    suspend fun getStoryWithLoc(): StoryResponse {
+        return withContext(Dispatchers.IO) {
+            val token = runBlocking { loginPreference.getLoginSession().first()?.loginResult?.token }
+            apiService.getStoryWithLoc("Bearer $token",1)
+        }
     }
 
     suspend fun addStory(
