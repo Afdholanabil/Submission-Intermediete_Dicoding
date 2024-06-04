@@ -32,4 +32,24 @@
         android:layout_gravity="center"
         />
 
+    <!-- TextView for error message -->
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/error_memuat_cerita"
+        android:gravity="center"
+        />
+
+    <!-- Button for retry action -->
+    <Button
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/coba_lagi"
+        android:layout_gravity="center_horizontal"
+        />
+
 </FrameLayout>

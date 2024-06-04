@@ -13,6 +13,7 @@ import com.example.submission_intermediete_dicoding.database.myStory.MyStorydao
 import com.example.submission_intermediete_dicoding.repository.paging.StoryPagingSource
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -34,15 +35,14 @@ class MyStoryRepository private constructor(
         return apiService.getStories("Bearer $token")
     }
 
-    fun getStoriesWithPaging(): Pager<Int, ListStoryItem> {
+    fun getStoriesWithPaging(): Flow<PagingData<ListStoryItem>> {
+
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            pagingSourceFactory = {
-                StoryPagingSource(apiService)
-            }
-        )
+            pagingSourceFactory = { StoryPagingSource(apiService, loginPreference) }
+        ).flow
     }
 
     suspend fun getStoryWithLoc(): StoryResponse {

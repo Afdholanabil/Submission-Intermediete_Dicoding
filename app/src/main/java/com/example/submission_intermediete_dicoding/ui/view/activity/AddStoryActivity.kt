@@ -3,9 +3,11 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
+import android.location.Location
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +16,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
@@ -23,6 +26,8 @@ import com.example.submission_intermediete_dicoding.databinding.ActivityAddStory
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 import com.example.submission_intermediete_dicoding.util.helper.createCustomTempFile
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import java.io.File
 import java.io.FileOutputStream
 
@@ -36,6 +41,10 @@ class AddStoryActivity : AppCompatActivity() {
 
     private var currentImageUri: Uri? = null
 
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var currentLatUser : Double? = null
+    private var currentLonUser : Double? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -46,6 +55,9 @@ class AddStoryActivity : AppCompatActivity() {
         loginData = intent.getParcelableExtra<LoginResponse>("token")!!
         val token = loginData.loginResult.token
         Log.d(TAG,"Token : $token")
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        getLastLocation()
 
         val storyRepository = Injection.provideStoryRepository(this)
         viewModel = ViewModelProvider(this, StoryViewModelFactory(storyRepository)).get(StoryViewModel::class.java)
@@ -115,7 +127,8 @@ class AddStoryActivity : AppCompatActivity() {
         try {
             myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = null, lon = null)
 
-            viewModel.uploadStory(description, compressedPhotoFile, null, null,myStory )
+            viewModel.uploadStory(description, compressedPhotoFile, currentLatUser, currentLonUser,myStory )
+            Log.d(TAG, "nilai lat: $currentLatUser dan lon: $currentLonUser")
             binding.btnAddStory.isEnabled = false
         } catch (e : Exception) {
             binding.btnAddStory.isEnabled = true
@@ -188,11 +201,39 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
+    private fun getLastLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            location?.let {
+                currentLatUser = it.latitude
+                currentLonUser = it.longitude
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                getLastLocation()
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     companion object {
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         private const val TAG = "AddStoryActivity"
         private const val REQUEST_PICK_PHOTO = 1
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
 
     }
 }

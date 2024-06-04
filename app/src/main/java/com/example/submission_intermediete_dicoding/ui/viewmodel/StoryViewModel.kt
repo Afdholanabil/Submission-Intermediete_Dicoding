@@ -4,12 +4,16 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.submission_intermediete_dicoding.data.response.AddStoryResponse
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
 import com.example.submission_intermediete_dicoding.util.Event
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -28,8 +32,12 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
+
     private val _stories = MutableLiveData<List<ListStoryItem>?>()
-    val stories: LiveData<List<ListStoryItem>?> get() = _stories
+    val stories: LiveData<List<ListStoryItem>?> = _stories
+
+    val storiesWithPaging: Flow<PagingData<ListStoryItem>> = storyRepository.getStoriesWithPaging()
+        .cachedIn(viewModelScope)
 
     private val _loading = MutableLiveData<Boolean>()
     val loading : LiveData<Boolean> = _loading
@@ -59,6 +67,11 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
             }
         }
     }
+
+//    fun getStoriesWithPaging(): Flow<PagingData<ListStoryItem>> {
+//        return storyRepository.getStoriesWithPaging()
+//            .flow.cachedIn(viewModelScope)
+//    }
 
     fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
 

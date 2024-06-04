@@ -73,5 +73,7 @@ Phasellus vestibulum mollis sodales. Maecenas vehicula ut tortor non tristique. 
     <string name="error_confirm_password">Confirm password is not the same</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="maps">Maps</string>
+    <string name="error_memuat_cerita">Error Memuat Cerita</string>
+    <string name="coba_lagi">Coba Lagi</string>
 
 </resources>

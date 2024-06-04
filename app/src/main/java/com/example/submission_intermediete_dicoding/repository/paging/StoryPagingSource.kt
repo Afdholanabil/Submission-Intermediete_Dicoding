@@ -1,11 +1,15 @@
 package com.example.submission_intermediete_dicoding.repository.paging
 
+
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiService
+import com.example.submission_intermediete_dicoding.util.LoginPreference
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
-class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, ListStoryItem>() {
+class StoryPagingSource(private val apiService: ApiService, private val loginPreference: LoginPreference) : PagingSource<Int, ListStoryItem>() {
     override fun getRefreshKey(state: PagingState<Int, ListStoryItem>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
@@ -15,8 +19,9 @@ class StoryPagingSource(private val apiService: ApiService) : PagingSource<Int, 
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryItem> {
         return try {
+            val token = runBlocking { loginPreference.getLoginSession().first()?.loginResult?.token }
             val page = params.key ?: INIT_PAGE_INDX
-            val responseData = apiService.getStoryPaging(page, params.loadSize)
+            val responseData = apiService.getStoryPaging("Bearer $token",page, params.loadSize)
 
             LoadResult.Page(
                 data = responseData.listStory!!,
