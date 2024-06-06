@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.databinding.ItemAllStoryBinding
 import com.example.submission_intermediete_dicoding.ui.view.activity.DetailActivity
-import kotlinx.coroutines.withContext
 
 class StoryPagingAdapter(private val context: Context) : PagingDataAdapter<ListStoryItem, StoryPagingAdapter.StoryViewHolder>(
     DiffCallback) {

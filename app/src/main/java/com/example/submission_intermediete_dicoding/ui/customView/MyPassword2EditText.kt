@@ -96,7 +96,7 @@ class MyPassword2EditText @JvmOverloads constructor(
     }
 
     private fun updatePasswordVisibility() {
-        if (isPasswordVisible) {
+        if(isPasswordVisible) {
             setButtonDrawables(endOfTheText = hideButtonDrawable)
             transformationMethod = HideReturnsTransformationMethod.getInstance()
         } else {

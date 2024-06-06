@@ -12,10 +12,8 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
 import com.example.submission_intermediete_dicoding.databinding.FragmentListBinding
-import com.example.submission_intermediete_dicoding.ui.adapter.AllStoryAdapter
 import com.example.submission_intermediete_dicoding.ui.adapter.StoryLoadStateAdapter
 import com.example.submission_intermediete_dicoding.ui.adapter.StoryPagingAdapter
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel

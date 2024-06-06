@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.paging.LoadState
 import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.submission_intermediete_dicoding.databinding.FragmentListBinding
-import com.example.submission_intermediete_dicoding.databinding.ItemAllStoryBinding
 import com.example.submission_intermediete_dicoding.databinding.ItemLoadStateBinding
 
 class StoryLoadStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<StoryLoadStateAdapter.LoadStateViewHolder>() {

@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -67,11 +66,6 @@ class StoryViewModel(private val storyRepository: MyStoryRepository) : ViewModel
             }
         }
     }
-
-//    fun getStoriesWithPaging(): Flow<PagingData<ListStoryItem>> {
-//        return storyRepository.getStoriesWithPaging()
-//            .flow.cachedIn(viewModelScope)
-//    }
 
     fun uploadStory(description: String, photoFile: File, lat: Double?, lon: Double?, myStory: MyStory) {
 

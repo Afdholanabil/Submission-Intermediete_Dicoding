@@ -8,7 +8,6 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import androidx.activity.viewModels
-import androidx.core.widget.addTextChangedListener
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.databinding.ActivityRegisterBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.RegisterViewModel

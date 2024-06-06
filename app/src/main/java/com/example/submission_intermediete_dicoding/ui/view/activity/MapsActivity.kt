@@ -2,12 +2,10 @@ package com.example.submission_intermediete_dicoding.ui.view.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.submission_intermediete_dicoding.R
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -17,7 +15,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.submission_intermediete_dicoding.databinding.ActivityMapsBinding
 import com.example.submission_intermediete_dicoding.ui.viewmodel.MapsViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
-import com.example.submission_intermediete_dicoding.ui.viewmodel.ViewModelFactory
 import com.google.android.gms.maps.model.LatLngBounds
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
