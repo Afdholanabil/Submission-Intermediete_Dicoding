@@ -45,6 +45,7 @@ class AddStoryActivity : AppCompatActivity() {
     private var currentLatUser : Double? = null
     private var currentLonUser : Double? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -74,6 +75,21 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnAddStory.setOnClickListener {
             addStory()
         }
+
+        binding.switchAccLoc.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                getLastLocation()
+                Toast.makeText(this, "Lokasi dinyalakan, cerita anda terlihat di maps!",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                currentLatUser = null
+                currentLonUser = null
+                Toast.makeText(this, "Lokasi dimatikan, cerita anda tidak terlihat di maps !",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
 
         viewModel.addStoryResponse.observe(this) { response ->
             if (response.error == false) {
@@ -125,9 +141,11 @@ class AddStoryActivity : AppCompatActivity() {
         val compressedPhotoFile = compressImageFile(photoFile2)
         val photoUri = Uri.fromFile(compressedPhotoFile)
         try {
-            myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = null, lon = null)
+            val lat = if (binding.switchAccLoc.isChecked) currentLatUser else null
+            val lon = if (binding.switchAccLoc.isChecked) currentLonUser else null
+            myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = lat, lon = lon)
 
-            viewModel.uploadStory(description, compressedPhotoFile, currentLatUser, currentLonUser,myStory )
+            viewModel.uploadStory(description, compressedPhotoFile, lat, lon,myStory )
             Log.d(TAG, "nilai lat: $currentLatUser dan lon: $currentLonUser")
             binding.btnAddStory.isEnabled = false
         } catch (e : Exception) {
