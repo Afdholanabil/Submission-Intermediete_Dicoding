@@ -9,25 +9,32 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.location.Location
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.Injection
 import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.databinding.ActivityAddStoryBinding
-import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
+import com.example.submission_intermediete_dicoding.ui.viewmodel.AddStoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 import com.example.submission_intermediete_dicoding.util.helper.createCustomTempFile
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.io.FileOutputStream
 
@@ -35,7 +42,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityAddStoryBinding
     private lateinit var image : Uri
-    private lateinit var viewModel: StoryViewModel
+    private lateinit var viewModel: AddStoryViewModel
     private lateinit var myStory: MyStory
     private lateinit var loginData : LoginResponse
 
@@ -61,7 +68,7 @@ class AddStoryActivity : AppCompatActivity() {
         getLastLocation()
 
         val storyRepository = Injection.provideStoryRepository(this)
-        viewModel = ViewModelProvider(this, StoryViewModelFactory(storyRepository)).get(StoryViewModel::class.java)
+        viewModel = ViewModelProvider(this, StoryViewModelFactory(storyRepository)).get(AddStoryViewModel::class.java)
 
         binding.imgPut.setImageURI(image)
         binding.btnGallery.setOnClickListener {
@@ -73,7 +80,11 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         binding.btnAddStory.setOnClickListener {
+lifecycleScope.launch {
             addStory()
+
+}
+
         }
 
         binding.switchAccLoc.setOnCheckedChangeListener { _, isChecked ->
@@ -91,26 +102,26 @@ class AddStoryActivity : AppCompatActivity() {
 
 
 
-        viewModel.addStoryResponse.observe(this) { response ->
-            if (response.error == false) {
-                Toast.makeText(this, "Story added successfully: ${response.message}", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("id_login",loginData)
-                startActivity(intent)
-                finish()
-            } else {
-                Toast.makeText(this, "Failed to add story: ${response.message}", Toast.LENGTH_LONG).show()
-            }
-        }
-
-        viewModel.error.observe(this) { errorMessage ->
-            Toast.makeText(this, "Error: $errorMessage", Toast.LENGTH_LONG).show()
-        }
-
-        viewModel.loading.observe(this) {
-            showLoading(it)
-        }
-
+//        viewModel.addStoryResponse.observe(this) { response ->
+//            if (response.error == false) {
+//                Toast.makeText(this, "Story added successfully: ${response.message}", Toast.LENGTH_LONG).show()
+//                val intent = Intent(this, MainActivity::class.java)
+//                intent.putExtra("id_login",loginData)
+//                startActivity(intent)
+//                finish()
+//            } else {
+//                Toast.makeText(this, "Failed to add story: ${response.message}", Toast.LENGTH_LONG).show()
+//            }
+//        }
+//
+//        viewModel.error.observe(this) { errorMessage ->
+//            Toast.makeText(this, "Error: $errorMessage", Toast.LENGTH_LONG).show()
+//        }
+//
+//        viewModel.loading.observe(this) {
+//            showLoading(it)
+//        }
+//
     }
 
     private fun startCameraX() {
@@ -129,28 +140,44 @@ class AddStoryActivity : AppCompatActivity() {
         }
     }
 
-    private fun addStory() {
-        val description = binding.etDescription.text.toString()
+    private  suspend fun addStory() {
+        val descriptionText = binding.etDescription.text.toString()
+        val description = descriptionText.toString().toRequestBody("text/plain".toMediaType())
         val img = binding.imgPut
+
         val photoFile2 = convertImageViewToFile(img, "photo.jpg")
-        if (description.isEmpty()) {
+        if (descriptionText.isEmpty()) {
             Toast.makeText(this, "Description cannot be empty", Toast.LENGTH_SHORT).show()
             return
         }
 
         val compressedPhotoFile = compressImageFile(photoFile2)
         val photoUri = Uri.fromFile(compressedPhotoFile)
-        try {
-            val lat = if (binding.switchAccLoc.isChecked) currentLatUser else null
-            val lon = if (binding.switchAccLoc.isChecked) currentLonUser else null
-            myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = lat, lon = lon)
 
-            viewModel.uploadStory(description, compressedPhotoFile, lat, lon,myStory )
-            Log.d(TAG, "nilai lat: $currentLatUser dan lon: $currentLonUser")
-            binding.btnAddStory.isEnabled = false
-        } catch (e : Exception) {
-            binding.btnAddStory.isEnabled = true
-        }
+        val requestImageFile = compressedPhotoFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "photo",
+            compressedPhotoFile.name,
+            requestImageFile
+        )
+            try {
+                val lat = if (binding.switchAccLoc.isChecked) currentLatUser else null
+                val lon = if (binding.switchAccLoc.isChecked) currentLonUser else null
+                myStory = MyStory(desc = binding.etDescription.text.toString(), photoUrl = photoUri.toString(), lat = lat, lon = lon)
+
+                viewModel.postStory(description, imageMultipart, lat, lon,myStory )
+                Log.d(TAG, "nilai lat: $currentLatUser dan lon: $currentLonUser")
+                binding.btnAddStory.isEnabled = false
+
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("id_login",loginData)
+                startActivity(intent)
+                finish()
+            } catch (e : Exception) {
+                binding.btnAddStory.isEnabled = true
+            }
+
+
 
     }
 

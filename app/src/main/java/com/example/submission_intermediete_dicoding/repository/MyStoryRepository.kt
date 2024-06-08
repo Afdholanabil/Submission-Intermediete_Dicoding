@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
+import androidx.paging.liveData
 import com.example.submission_intermediete_dicoding.data.response.AddStoryResponse
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
+import com.example.submission_intermediete_dicoding.data.response.LoginResponse
 import com.example.submission_intermediete_dicoding.data.response.StoryResponse
 import com.example.submission_intermediete_dicoding.data.retrofit.ApiService
 import com.example.submission_intermediete_dicoding.database.myStory.MyStory
@@ -13,36 +15,51 @@ import com.example.submission_intermediete_dicoding.database.myStory.MyStorydao
 import com.example.submission_intermediete_dicoding.repository.paging.StoryPagingSource
 import com.example.submission_intermediete_dicoding.util.LoginPreference
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.mockito.Mockito
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
-class MyStoryRepository private constructor(
+
+open class MyStoryRepository (
     private val apiService : ApiService,
     private val loginPreference: LoginPreference,
     private val myStoryDao : MyStorydao
 ) {
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
 
+
     suspend fun getStories(): StoryResponse {
         val token = runBlocking { loginPreference.getLoginSession().first()?.loginResult?.token }
         return apiService.getStories("Bearer $token")
     }
 
-    fun getStoriesWithPaging(): Flow<PagingData<ListStoryItem>> {
+    fun initLoginSession(loginSession: LoginResponse) {
+        Mockito.`when`(loginPreference.getLoginSession()).thenReturn(flowOf(loginSession))
+    }
+
+    suspend fun initToken(token: String?, dummyLoginSession:LoginResponse) {
+        val loginSessionFlow = flowOf(dummyLoginSession)
+        Mockito.doReturn(loginSessionFlow).`when`(loginPreference).getLoginSession()
+    }
+
+
+    fun getStoriesWithPaging(): LiveData<PagingData<ListStoryItem>> {
 
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            pagingSourceFactory = { StoryPagingSource(apiService, loginPreference) }
-        ).flow
+            pagingSourceFactory = {
+                StoryPagingSource(apiService,loginPreference)
+            }
+        ).liveData
     }
 
     suspend fun getStoryWithLoc(): StoryResponse {

@@ -12,13 +12,13 @@ object DummyData {
         val listStory = ArrayList<ListStoryItem>()
         for (i in 1..20) {
             val story = ListStoryItem(
+                createdAt = "2024-01-22T22:22:22Z",
+                description = "Description $i",
                 id = "id_$i",
-                description = "Deksripsi ke $i",
-                name = "Name $i",
-                createdAt = "2024-06-04T15:06:32.839Z",
                 lat = i.toDouble() * 10,
                 lon = i.toDouble() * 10,
-                photoUrl = "https://images.unsplash.com/photo-1715521801494-3e72f7c9361b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                name = "Name $i",
+                photoUrl = "https://blog.eigeradventure.com/wp-content/uploads/2022/07/tips-foto-aesthetics-2.jpg"
             )
             listStory.add(story)
         }

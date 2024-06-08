@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.libsDirectory
 
 plugins {
     id("com.android.application")
@@ -22,6 +21,9 @@ android {
 
         buildConfigField("String", "BASE_URL","\"https://story-api.dicoding.dev/v1/\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testOptions {
+            unitTests.isReturnDefaultValues = true
+        }
     }
 
     buildTypes {
@@ -55,8 +57,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("androidx.paging:paging-common-android:3.3.0")
     implementation("com.google.android.gms:play-services-location:21.3.0")
+    implementation("androidx.test:core-ktx:1.5.0")
+
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     testImplementation("junit:junit:4.13.2")
-    testImplementation("junit:junit:4.12")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
@@ -99,11 +104,11 @@ dependencies {
     implementation ("androidx.paging:paging-runtime-ktx:3.3.0")
 
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
-    testImplementation ("androidx.arch.core:core-testing:2.1.0")
-    testImplementation ("org.mockito:mockito-core:4.9.0")
-    testImplementation ("org.mockito.kotlin:mockito-kotlin:3.2.0")
-    testImplementation ("io.mockk:mockk:1.12.0")
+    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+    testImplementation ("androidx.arch.core:core-testing:2.2.0")
+    implementation ("org.mockito:mockito-core:4.9.0")
+    implementation ("org.mockito.kotlin:mockito-kotlin:3.2.0")
 
-
+    testImplementation ("org.mockito:mockito-inline:4.4.0")
 
 }

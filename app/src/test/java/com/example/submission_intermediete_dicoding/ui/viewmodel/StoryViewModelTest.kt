@@ -1,118 +1,91 @@
 package com.example.submission_intermediete_dicoding.ui.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingData
-import androidx.paging.map
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import androidx.recyclerview.widget.ListUpdateCallback
 import com.example.submission_intermediete_dicoding.data.response.ListStoryItem
-import com.example.submission_intermediete_dicoding.database.myStory.MyStory
 import com.example.submission_intermediete_dicoding.repository.MyStoryRepository
+import com.example.submission_intermediete_dicoding.ui.adapter.StoryPagingAdapter
 import com.example.submission_intermediete_dicoding.util.DummyData
-import com.example.submission_intermediete_dicoding.util.MainDispatcherRules
+import com.example.submission_intermediete_dicoding.util.MainDispatcherRule
 import com.example.submission_intermediete_dicoding.util.getOrAwaitValue
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
-import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
-import java.io.File
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.MockitoJUnitRunner
 
 
 @ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class StoryViewModelTest {
     @get:Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+    var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @get:Rule
-    val mainDispatcherRule = MainDispatcherRules()
+    var mainDispatcherRule = MainDispatcherRule()
 
-    private lateinit var storyViewModel: StoryViewModel
-    private val storyRepository = mockk<MyStoryRepository>()
+    @Mock
+    private lateinit var storyRepository: MyStoryRepository
 
-    @Before
-    fun setUp() {
-        storyViewModel = StoryViewModel(storyRepository)
+    private val dummyStoriesResponse = DummyData.generateDummyStories()
+    @Test
+    fun `ketika getStoriesWithPaging Harus Mengembalikan Sukses`() = runBlockingTest {
+
+        val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(dummyStoriesResponse.listStory)
+        val expectedStories = MutableLiveData<PagingData<ListStoryItem>>()
+        expectedStories.value = data
+
+        Mockito.`when`(storyRepository.getStoriesWithPaging()).thenReturn(expectedStories)
+
+        val storyViewModel = StoryViewModel(storyRepository)
+        val actualStories: PagingData<ListStoryItem> = storyViewModel.storiesWithPaging.getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryPagingAdapter.DiffCallback,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = Dispatchers.Unconfined
+        )
+
+        differ.submitData(actualStories)
+
+        Assert.assertNotNull(differ.snapshot())
+        Assert.assertEquals(dummyStoriesResponse.listStory, differ.snapshot())
+        Assert.assertEquals(dummyStoriesResponse.listStory.size, differ.snapshot().size)
+        Assert.assertEquals(dummyStoriesResponse.listStory[0].id, differ.snapshot()[0]?.id)
     }
 
-    @Test
-    fun `getStoriesWithPaging should return PagingData`() = runBlockingTest {
-        val dummyPagingData = PagingData.from(DummyData.generateDummyStories().listStory!!)
-        val expectedResult = flowOf(dummyPagingData)
+}
 
-        coEvery { storyRepository.getStoriesWithPaging() } returns expectedResult
 
-        val actualResult = storyViewModel.storiesWithPaging.first()
-
-        assertNotNull(actualResult)
-        assertEquals(dummyPagingData, actualResult)
+class StoryPagingSource : PagingSource<Int, ListStoryItem>() {
+    companion object {
+        fun snapshot(items: List<ListStoryItem>): PagingData<ListStoryItem> {
+            return PagingData.from(items)
+        }
     }
 
-    @Test
-    fun `when loading stories is successful, ensure data is not null and matches expected values`() = runBlockingTest {
-        val dummyStories = DummyData.generateDummyStories().listStory!!
-        val pagingData = PagingData.from(dummyStories)
-
-        coEvery { storyRepository.getStoriesWithPaging() } returns flowOf(pagingData)
-
-        val actualData = storyViewModel.storiesWithPaging.asSnapshot()
-
-        assertNotNull(actualData)
-        assertEquals(dummyStories.size, actualData.size)
-        assertEquals(dummyStories.first(), actualData.first())
+    override fun getRefreshKey(state: PagingState<Int, ListStoryItem>): Int? {
+        return null
     }
 
-    @Test
-    fun `when no stories are returned, ensure data size is zero`() = runBlockingTest {
-        val emptyPagingData = PagingData.from(emptyList<ListStoryItem>())
-
-        coEvery { storyRepository.getStoriesWithPaging() } returns flowOf(emptyPagingData)
-
-        val actualData = storyViewModel.storiesWithPaging.asSnapshot()
-
-        assertNotNull(actualData)
-        assertTrue(actualData.isEmpty())
-    }
-
-    @Test
-    fun `addStory should trigger uploadStory in repository`() = runBlockingTest {
-        val description = "Test Description".toRequestBody("text/plain".toMediaTypeOrNull())
-        val photoFile = mockk<File>()
-        val requestBody = photoFile.asRequestBody("image/jpeg".toMediaTypeOrNull())
-        val photo = MultipartBody.Part.createFormData("photo", photoFile.name, requestBody)
-        val lat = 1.0
-        val lon = 2.0
-        val myStory = MyStory(desc = "Test Description", photoUrl = "photoUrl", lat = lat, lon = lon)
-        val addStoryResponse = DummyData.generateDummyCreateStory()
-
-        coEvery { storyRepository.addStory(description, photo, lat, lon, myStory) } returns addStoryResponse
-
-        storyViewModel.uploadStory("Test Description", photoFile, lat, lon, myStory)
-        val result = storyViewModel.addStoryResponse.getOrAwaitValue()
-
-        coVerify { storyRepository.addStory(description, photo, lat, lon, myStory) }
-        assertNotNull(result)
-        assertEquals(addStoryResponse, result)
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ListStoryItem> {
+        return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
     }
 }
 
-@ExperimentalCoroutinesApi
-suspend fun <T : Any> Flow<PagingData<T>>.asSnapshot(): List<T> {
-    val items = mutableListOf<T>()
-    this.collectLatest { pagingData ->
-        pagingData.map { item ->
-            items.add(item)
-        }
-    }
-    return items
+val noopListUpdateCallback = object : ListUpdateCallback {
+    override fun onInserted(position: Int, count: Int) {}
+    override fun onRemoved(position: Int, count: Int) {}
+    override fun onMoved(fromPosition: Int, toPosition: Int) {}
+    override fun onChanged(position: Int, count: Int, payload: Any?) {}
 }

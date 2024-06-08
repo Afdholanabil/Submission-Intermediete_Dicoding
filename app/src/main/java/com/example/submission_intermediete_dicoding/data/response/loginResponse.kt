@@ -1,9 +1,11 @@
 package com.example.submission_intermediete_dicoding.data.response
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
+@Entity
 @Parcelize
 data class LoginResponse(
 

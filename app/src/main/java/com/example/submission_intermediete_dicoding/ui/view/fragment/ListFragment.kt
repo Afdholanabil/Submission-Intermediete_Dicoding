@@ -1,11 +1,11 @@
 package com.example.submission_intermediete_dicoding.ui.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
@@ -19,7 +19,6 @@ import com.example.submission_intermediete_dicoding.ui.adapter.StoryPagingAdapte
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModel
 import com.example.submission_intermediete_dicoding.ui.viewmodel.StoryViewModelFactory
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"
@@ -57,10 +56,11 @@ class ListFragment : Fragment() {
         setupRecyclerView()
 
         lifecycleScope.launch {
-            storyViewModel.storiesWithPaging.collectLatest { pagingData ->
+            storyViewModel.storiesWithPaging.observe(viewLifecycleOwner) { pagingData ->
                 (binding.rvListStory.adapter as ConcatAdapter).adapters
                     .filterIsInstance<StoryPagingAdapter>()
-                    .firstOrNull()?.submitData(pagingData)
+                    .firstOrNull()?.submitData(lifecycle,pagingData)
+
             }
         }
 

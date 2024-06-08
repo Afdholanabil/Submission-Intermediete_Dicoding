@@ -15,6 +15,8 @@ class StoryViewModelFactory(private val storyRepository: MyStoryRepository) : Vi
             return MainActivityViewModel(storyRepository) as T
         } else if (modelClass.isAssignableFrom(MapsViewModel::class.java)) {
             return MapsViewModel(storyRepository) as T
+        } else if (modelClass.isAssignableFrom(AddStoryViewModel::class.java)) {
+            return AddStoryViewModel(storyRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
