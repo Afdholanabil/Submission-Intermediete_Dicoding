@@ -61,7 +61,30 @@ class StoryViewModelTest {
         Assert.assertNotNull(differ.snapshot())
         Assert.assertEquals(dummyStoriesResponse.listStory, differ.snapshot())
         Assert.assertEquals(dummyStoriesResponse.listStory.size, differ.snapshot().size)
-        Assert.assertEquals(dummyStoriesResponse.listStory[0].id, differ.snapshot()[0]?.id)
+        Assert.assertEquals(dummyStoriesResponse.listStory[0], differ.snapshot()[0])
+    }
+
+    @Test
+    fun `ketika getStoriesWithPaging Tidak Ada Data Cerita`() = runBlockingTest {
+        val data: PagingData<ListStoryItem> = StoryPagingSource.snapshot(emptyList())
+        val expectedStories = MutableLiveData<PagingData<ListStoryItem>>()
+        expectedStories.value = data
+
+        Mockito.`when`(storyRepository.getStoriesWithPaging()).thenReturn(expectedStories)
+
+        val storyViewModel = StoryViewModel(storyRepository)
+        val actualStories: PagingData<ListStoryItem> = storyViewModel.storiesWithPaging.getOrAwaitValue()
+
+        val differ = AsyncPagingDataDiffer(
+            diffCallback = StoryPagingAdapter.DiffCallback,
+            updateCallback = noopListUpdateCallback,
+            workerDispatcher = Dispatchers.Unconfined
+        )
+
+        differ.submitData(actualStories)
+
+        Assert.assertNotNull(differ.snapshot())
+        Assert.assertEquals(0, differ.snapshot().size)
     }
 
 }
